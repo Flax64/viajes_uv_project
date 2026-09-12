@@ -1,0 +1,22 @@
+/* Contenedor optimizado exclusivamente para PC */
+.welcome-container 
+{
+    display: flex;
+    flex-direction: row;     /* Mantiene el logo y el texto en la misma fila */
+    align-items: center;     /* Alinea verticalmente al centro */
+    justify-content: center; /* Centra todo el bloque en la pantalla de la PC */
+    gap: 20px;               /* Espacio cómodo entre el logo y el texto */
+    padding: 20px;           /* Margen interno para que respire el diseño */
+    
+    /* Control de tamaño en PC */
+    max-width: 1200px;       /* Evita que el contenido se estire demasiado en monitores gigantes */
+    margin: 0 auto;          /* Centra el contenedor horizontalmente en el navegador */
+}
+
+/* Logo */
+#logo_viajes_uv 
+{
+    width: 120px;            /* Tamaño fijo e ideal para pantallas de escritorio */
+    height: auto;            /* Mantiene la proporción de la imagen */
+    flex-shrink: 0;          /* Evita que la PC deforme o achique la imagen */
+}
