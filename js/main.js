@@ -14,10 +14,14 @@ const enlacesMenu = document.querySelectorAll('.nav a[href^="#"]');
 enlacesMenu.forEach(enlace => {
     enlace.addEventListener('click', function (e) {
         e.preventDefault(); // Evita el salto brusco
-        
         const destino = document.querySelector(this.getAttribute('href'));
         if (destino) {
-            destino.scrollIntoView({
+            // Obtenemos la distancia del elemento desde arriba
+            const posicionElemento = destino.getBoundingClientRect().top + window.scrollY;
+            const compensacionMenu = 95;
+            // Hacemos el scroll suave hacia esa nueva posición
+            window.scrollTo({
+                top: posicionElemento - compensacionMenu,
                 behavior: 'smooth'
             });
         }
@@ -91,7 +95,7 @@ botonesVerDetalles.forEach(boton => {
             modalTitulo.textContent = datos.titulo;
             modalImg.src = datos.imagen;
             modalPrecio.textContent = datos.precio;
-            
+
             // Actualizamos el enlace de WhatsApp codificando el mensaje para la URL
             modalEnlaceWhats.href = `https://wa.me/528445512379?text=${encodeURIComponent(datos.mensajeWhats)}`;
 
@@ -107,7 +111,7 @@ botonesVerDetalles.forEach(boton => {
 
         // Mostramos el modal y bloqueamos el scroll del fondo
         modalDetalles.classList.add('active');
-        document.body.style.overflow = 'hidden'; 
+        document.body.style.overflow = 'hidden';
     });
 });
 
@@ -135,7 +139,7 @@ function cerrarModal() {
     }, 300); // Espera a que la animación de cierre termine
 }
 
-if('scrollRestoration' in history) {
+if ('scrollRestoration' in history) {
     history.scrollRestoration = 'manual';
 }
 window.addEventListener('beforeunload', () => {
