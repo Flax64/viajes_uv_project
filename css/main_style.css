@@ -27,6 +27,23 @@ body {
     color: var(--text-dark);
 }
 
+/* Imágenes */
+.viaje1 {
+    background-image: url('../files/img/viaje1.webp');
+}
+
+.viaje2 {
+    background-image: url('../files/img/viaje2.webp');
+}
+
+.viaje3 {
+    background-image: url('../files/img/viaje3.webp');
+}
+
+.viaje4 {
+    background-image: url('../files/img/viaje4.webp');
+}
+
 /* --- HEADER --- */
 .header {
     background-color: var(--white);
@@ -112,8 +129,7 @@ body {
 
 .trips-grid {
     display: grid;
-    /* Esto hace que las tarjetas sean responsivas automáticamente */
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: 40px;
 }
 
@@ -138,15 +154,6 @@ body {
     background-size: cover;
     background-position: center;
     position: relative;
-}
-
-/* Imágenes */
-.viaje1 {
-    background-image: url('../files/img/cancun.webp');
-}
-
-.viaje2 {
-    background-image: url('../files/img/puerto_vallarta.webp');
 }
 
 .badge {
@@ -356,15 +363,19 @@ body {
         gap: 15px;
         padding: 15px 20px;
     }
-
+    
     .nav {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
         gap: 15px;
     }
-
+    
     .nav a {
         margin-left: 0;
+    }
+
+    .trips-grid {
+        grid-template-columns: 1fr;
     }
 }
