@@ -141,3 +141,13 @@ function cerrarModal() {
         modalBody.scrollTop = 0; // Reinicia el scroll del modal al cerrar
     }, 300); // Espera a que la animación de cierre termine
 }
+
+if('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+}
+window.addEventListener('beforeunload', () => {
+    window.scrollTo(0, 0);
+});
+window.addEventListener('load', () => {
+    window.scrollTo(0, 0);
+});
