@@ -131,3 +131,13 @@ function cerrarModal() {
     modalDetalles.classList.remove('active');
     document.body.style.overflow = 'auto';
 }
+
+// LÓGICA PARA CERRAR EL MODAL REINICIANDO EL SCROLL
+const modalBody = document.querySelector('.modal-body');
+function cerrarModal() {
+    modalDetalles.classList.remove('active');
+    document.body.style.overflow = 'auto';
+    setTimeout(() => {
+        modalBody.scrollTop = 0; // Reinicia el scroll del modal al cerrar
+    }, 300); // Espera a que la animación de cierre termine
+}
