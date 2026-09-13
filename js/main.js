@@ -31,3 +31,29 @@ enlacesMenu.forEach(enlace => {
     });
 });
 
+// SELECCIÓN DE ELEMENTOS PARA EL MODAL
+const modalDetalles = document.getElementById('modal-detalles');
+const botonesVerDetalles = document.querySelectorAll('.btn-reservar'); // Los botones de tus tarjetas
+const btnCerrarModal = document.querySelector('.close-modal');
+
+// ABRIR EL MODAL: Recorre todos los botones "Ver Detalles" y les agrega el evento
+botonesVerDetalles.forEach(boton => {
+    boton.addEventListener('click', () => {
+        modalDetalles.classList.add('active');
+        document.body.style.overflow = 'hidden'; 
+    });
+});
+
+// CERRAR EL MODAL CON LA 'X'
+btnCerrarModal.addEventListener('click', () => {
+    modalDetalles.classList.remove('active');
+    document.body.style.overflow = 'auto';
+});
+
+// CERRAR EL MODAL HACIENDO CLIC AFUERA DE LA CAJA BLANCA
+modalDetalles.addEventListener('click', (e) => {
+    if (e.target === modalDetalles) {
+        modalDetalles.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    }
+});
