@@ -1,15 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Viajes UV</title>
-        <link rel="Stylesheet" href="css/main_style.css">
-    </head>
-    <body>
-        <div class="welcome-container">
-            <img src="files/img/logo_viajes_uv.webp" alt="logo_viajes_uv" id="logo_viajes_uv">
-            <h1>Bienvenido a la página de Viajes UV</h1>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viajes UV</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Edu+NSW+ACT+Cursive:wght@400..700&display=swap"
+        rel="stylesheet">
+    <link rel="Stylesheet" href="css/main_style.css">
+</head>
+
+<body>
+    <!-- Encabezado basado en la imagen de referencia -->
+    <header class="header">
+        <div class="logo-container">
+            <!-- Aquí iría tu imagen real del logo -->
+            <img src="files/img/logo_viajes_uv.webp" alt="Logo Viajes UV" class="logo-img" alt="Logo de Viajes UV">
+            <h1 class="logo-text">Viajes UV</h1>
         </div>
-    </body>
+        <nav class="nav">
+            <a href="#">Inicio</a>
+            <a href="#viajes">Viajes Disponibles</a>
+            <a href="">Contacto</a>
+        </nav>
+    </header>
+
+    <!-- Banner Principal -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Escápate a la playa con tu grupo</h2>
+            <p>Las mejores experiencias para disfrutar del mar, la arena y el sol.</p>
+        </div>
+    </section>
+
+    <!-- Sección de Viajes -->
+    <main id="viajes" class="destinos-container">
+        <h2 class="section-title">Nuestros Próximos Viajes a Cancún</h2>
+
+        <div class="trips-grid">
+            <!-- Tarjeta Viaje: Diciembre -->
+            <article class="trip-card">
+                <div class="trip-image cancun">
+                    <span class="badge">¡Próximo!</span>
+                </div>
+                <div class="trip-content">
+                    <h3>Cancún</h3>
+                    <p class="date">📅 Diciembre</p>
+                    <p class="description">Despide el año en las playas más hermosas del Caribe con tu grupo. Vuelo
+                        redondo, hospedaje y todo incluido.</p>
+                    <div class="card-footer">
+                        <span class="price">Desde $8,500 MXN</span>
+                        <button class="btn-reservar">Ver Detalles</button>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Tarjeta Viaje: Mayo -->
+            <article class="trip-card">
+                <div class="trip-image vallarta"></div>
+                <div class="trip-content">
+                    <h3>Puerto Vallarta</h3>
+                    <p class="date">📅 Mayo</p>
+                    <p class="description">Aprovecha el clima perfecto antes del verano. Sol, arena y la mejor fiesta
+                        garantizada para tu grupo.</p>
+                    <div class="card-footer">
+                        <span class="price">Desde $7,200 MXN</span>
+                        <button class="btn-reservar">Ver Detalles</button>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </main>
+</body>
+
 </html>
