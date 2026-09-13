@@ -270,18 +270,25 @@ body {
     font-size: 1.4rem;
 }
 
-.modal-close {
-    background: none;
+.close-modal {
+    background-color: #f0f4f8; 
     border: none;
-    font-size: 2rem;
+    font-size: 1.5rem;
     color: var(--text-gray);
     cursor: pointer;
-    line-height: 1;
-    transition: color 0.2s;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
 }
 
-.modal-close:hover {
-    color: #ff6b6b;
+.close-modal:hover {
+    background-color: #ff6b6b; 
+    color: var(--white);      
+    transform: rotate(90deg);
 }
 
 /* --- ZONA CON SCROLL --- */
