@@ -32,8 +32,8 @@ enlacesMenu.forEach(enlace => {
 const baseDeDatosViajes = {
     viaje1: {
         titulo: "Detalles del Viaje: Cancún",
-        imagen: "files/img/cancun.webp",
-        precio: "Total: $8,500 MXN",
+        imagen: "files/img/viaje1.webp",
+        precio: "Total: $X,XXX MXN",
         mensajeWhats: "Hola Viajes UV, quiero reservar el viaje a Cancún",
         incluye: [
             "✈️ Vuelo redondo desde Monterrey/Saltillo.",
@@ -50,8 +50,8 @@ const baseDeDatosViajes = {
     },
     viaje2: {
         titulo: "Detalles del Viaje: Puerto Vallarta",
-        imagen: "files/img/puerto_vallarta.webp",
-        precio: "Total: $7,200 MXN",
+        imagen: "files/img/viaje2.webp",
+        precio: "Total: $X,XXX MXN",
         mensajeWhats: "Hola Viajes UV, quiero reservar el viaje a Puerto Vallarta",
         incluye: [
             "🚌 Transporte terrestre en autobús de primera clase.",
@@ -64,6 +64,42 @@ const baseDeDatosViajes = {
             <p><strong>Día 2:</strong> Llegada en la mañana, check-in y tarde libre.</p>
             <p><strong>Día 3:</strong> Visita a Playa Las Ánimas (opcional).</p>
             <p><strong>Día 4:</strong> Check-out a mediodía y regreso.</p>
+        `
+    },
+    viaje3: {
+        titulo: "Detalles del Viaje: Riviera Maya",
+        imagen: "files/img/viaje3.webp",
+        precio: "Total: $X,XXX MXN",
+        mensajeWhats: "Hola Viajes UV, quiero reservar el viaje a Riviera Maya",
+        incluye: [
+            "✈️ Vuelo redondo desde Monterrey/Saltillo.",
+            "🏨 Hospedaje por 4 días y 3 noches en Hotel 5 Estrellas.",
+            "🍹 Plan Todo Incluido (Desayuno, comida, cena y bebidas).",
+            "🚌 Traslados Aeropuerto - Hotel - Aeropuerto."
+        ],
+        itinerario: `
+            <p><strong>Día 1:</strong> Llegada al hotel, check-in y tarde libre en la alberca.</p>
+            <p><strong>Día 2:</strong> Tour en catamarán hacia Isla Mujeres.</p>
+            <p><strong>Día 3:</strong> Día libre y fiesta de despedida en la noche.</p>
+            <p><strong>Día 4:</strong> Check-out y traslado al aeropuerto.</p>
+        `
+    },
+    viaje4: {
+        titulo: "Detalles del Viaje: Mazatlán",
+        imagen: "files/img/viaje4.webp",
+        precio: "Total: $X,XXX MXN",
+        mensajeWhats: "Hola Viajes UV, quiero reservar el viaje a Mazatlán",
+        incluye: [
+            "✈️ Vuelo redondo desde Monterrey/Saltillo.",
+            "🏨 Hospedaje por 4 días y 3 noches en Hotel 5 Estrellas.",
+            "🍹 Plan Todo Incluido (Desayuno, comida, cena y bebidas).",
+            "🚌 Traslados Aeropuerto - Hotel - Aeropuerto."
+        ],
+        itinerario: `
+            <p><strong>Día 1:</strong> Llegada a Mazatlán, check-in y tarde libre en la playa.</p>
+            <p><strong>Día 2:</strong> Tour por la ciudad y visita a los principales sitios históricos.</p>
+            <p><strong>Día 3:</strong> Día libre para disfrutar de las actividades náuticas.</p>
+            <p><strong>Día 4:</strong> Check-out y regreso.</p>
         `
     }
 };
