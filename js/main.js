@@ -1,17 +1,10 @@
-// Selecciona el encabezado
 const header = document.querySelector('.header');
-
-// Escucha el evento de scroll en la ventana
 window.addEventListener('scroll', () => {
     if (window.scrollY > 50) {
-        // Cuando bajas más de 50px
-        header.style.padding = '10px 50px';
-        header.style.boxShadow = '0 4px 15px rgba(0,0,0,0.1)';
+        header.classList.add('scrolled');
         header.style.transition = 'all 0.3s ease';
     } else {
-        // Cuando estás hasta arriba
-        header.style.padding = '15px 50px';
-        header.style.boxShadow = '0 4px 10px rgba(0,0,0,0.05)';
+        header.classList.remove('scrolled');
     }
 });
 
