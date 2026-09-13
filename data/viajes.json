@@ -1,0 +1,88 @@
+[
+    {
+        "id": "viaje1",
+        "nombre": "Cancún",
+        "fecha": "📅 Diciembre",
+        "descripcion": "Disfruta de las playas de arena blanca y aguas cristalinas de Cancún. Perfecto para relajarte y disfrutar del sol.",
+        "precio": 8500,
+        "imagen": "files/img/viaje1.webp",
+        "mensajeWhats": "Hola Viajes UV, quiero reservar el viaje a Cancún",
+        "incluye": [
+            "✈️ Vuelo redondo desde Monterrey/Saltillo.",
+            "🏨 Hospedaje por 4 días y 3 noches en Hotel Osasis.",
+            "🍹 Plan Todo Incluido (Desayuno, comida, cena y bebidas).",
+            "🚌 Traslados Aeropuerto - Hotel - Aeropuerto."
+        ],
+        "itinerario": [
+            "Día 1: Llegada a Cancún y traslado al hotel.",
+            "Día 2: Día libre para disfrutar de la playa o actividades opcionales.",
+            "Día 3: Excursión a Isla Mujeres o Chichén Itzá (opcional).",
+            "Día 4: Check-out y regreso a casa."
+        ]
+    },
+    {
+        "id": "viaje2",
+        "nombre": "Riviera Maya",
+        "fecha": "📅 Enero",
+        "descripcion": "Explora la belleza natural y la cultura de la Riviera Maya. Ideal para los amantes de la historia y la naturaleza.",
+        "precio": 9500,
+        "imagen": "files/img/viaje2.webp",
+        "mensajeWhats": "Hola Viajes UV, quiero reservar el viaje a Riviera Maya",
+        "incluye": [
+            "✈️ Vuelo redondo desde Monterrey/Saltillo.",
+            "🏨 Hospedaje por 5 días y 4 noches en Hotel Playa del Carmen.",
+            "🍹 Plan Todo Incluido (Desayuno, comida, cena y bebidas).",
+            "🚌 Traslados Aeropuerto - Hotel - Aeropuerto."
+        ],
+        "itinerario": [
+            "Día 1: Llegada a Riviera Maya y traslado al hotel.",
+            "Día 2: Visita a Tulum y sus playas.",
+            "Día 3: Excursión a Cozumel o snorkel en cenotes.",
+            "Día 4: Día libre para disfrutar del resort o actividades opcionales.",
+            "Día 5: Check-out y regreso a casa."
+        ]
+    },
+    {
+        "id": "viaje3",
+        "nombre": "Puerto Vallarta",
+        "fecha": "📅 Febrero",
+        "descripcion": "Vive la experiencia de Puerto Vallarta con sus playas, vida nocturna y deliciosa gastronomía. Perfecto para una escapada romántica.",
+        "precio": 7800,
+        "imagen": "files/img/viaje3.webp",
+        "mensajeWhats": "Hola Viajes UV, quiero reservar el viaje a Puerto Vallarta",
+        "incluye": [
+            "✈️ Vuelo redondo desde Monterrey/Saltillo.",
+            "🏨 Hospedaje por 4 días y 3 noches en Hotel Playa del Sol.",
+            "🍹 Plan Todo Incluido (Desayuno, comida, cena y bebidas).",
+            "🚌 Traslados Aeropuerto - Hotel - Aeropuerto."
+        ],
+        "itinerario": [
+            "Día 1: Llegada a Puerto Vallarta y traslado al hotel.",
+            "Día 2: Tour por la ciudad y sus playas.",
+            "Día 3: Excursión a las Islas Marietas o paseo en barco.",
+            "Día 4: Check-out y regreso a casa."
+        ]
+    },
+    {
+        "id": "viaje4",
+        "nombre": "Los Cabos",
+        "fecha": "📅 Marzo",
+        "descripcion": "Disfruta de la belleza de Los Cabos con sus paisajes desérticos y playas impresionantes. Ideal para los amantes de la aventura y el lujo.",
+        "precio": 9200,
+        "imagen": "files/img/viaje4.webp",
+        "mensajeWhats": "Hola Viajes UV, quiero reservar el viaje a Los Cabos",
+        "incluye": [
+            "✈️ Vuelo redondo desde Monterrey/Saltillo.",
+            "🏨 Hospedaje por 5 días y 4 noches en Hotel Cabo San Lucas.",
+            "🍹 Plan Todo Incluido (Desayuno, comida, cena y bebidas).",
+            "🚌 Traslados Aeropuerto - Hotel - Aeropuerto."
+        ],
+        "itinerario": [
+            "Día 1: Llegada a Los Cabos y traslado al hotel.",
+            "Día 2: Tour por Cabo San Lucas y sus playas.",
+            "Día 3: Excursión a La Paz o avistamiento de ballenas (opcional).",
+            "Día 4: Día libre para disfrutar del resort o actividades opcionales.",
+            "Día 5: Check-out y regreso a casa."
+        ]
+    }
+]

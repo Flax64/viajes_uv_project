@@ -1,3 +1,13 @@
+// ==========================================
+// 1. EFECTOS DE INTERFAZ (HEADER Y SCROLL)
+// ==========================================
+
+// Forzar inicio al recargar la página
+if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+}
+
+// Efecto Scroll del Encabezado
 const header = document.querySelector('.header');
 window.addEventListener('scroll', () => {
     if (window.scrollY > 50) {
@@ -8,18 +18,15 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// Selecciona todos los enlaces que apuntan a un ID interno
+// Desplazamiento suave para enlaces del menú
 const enlacesMenu = document.querySelectorAll('.nav a[href^="#"]');
-
 enlacesMenu.forEach(enlace => {
     enlace.addEventListener('click', function (e) {
-        e.preventDefault(); // Evita el salto brusco
+        e.preventDefault(); 
         const destino = document.querySelector(this.getAttribute('href'));
         if (destino) {
-            // Obtenemos la distancia del elemento desde arriba
             const posicionElemento = destino.getBoundingClientRect().top + window.scrollY;
-            const compensacionMenu = 95;
-            // Hacemos el scroll suave hacia esa nueva posición
+            const compensacionMenu = 95; // Tamaño del menú fijo
             window.scrollTo({
                 top: posicionElemento - compensacionMenu,
                 behavior: 'smooth'
@@ -28,87 +35,67 @@ enlacesMenu.forEach(enlace => {
     });
 });
 
-// 1. BASE DE DATOS LOCAL DE LOS VIAJES
-const baseDeDatosViajes = {
-    viaje1: {
-        titulo: "Detalles del Viaje: Cancún",
-        imagen: "files/img/viaje1.webp",
-        precio: "Total: $X,XXX MXN",
-        mensajeWhats: "Hola Viajes UV, quiero reservar el viaje a Cancún",
-        incluye: [
-            "✈️ Vuelo redondo desde Monterrey/Saltillo.",
-            "🏨 Hospedaje por 4 días y 3 noches en Hotel 5 Estrellas.",
-            "🍹 Plan Todo Incluido (Desayuno, comida, cena y bebidas).",
-            "🚌 Traslados Aeropuerto - Hotel - Aeropuerto."
-        ],
-        itinerario: `
-            <p><strong>Día 1:</strong> Llegada al hotel, check-in y tarde libre en la alberca.</p>
-            <p><strong>Día 2:</strong> Tour en catamarán hacia Isla Mujeres.</p>
-            <p><strong>Día 3:</strong> Día libre y fiesta de despedida en la noche.</p>
-            <p><strong>Día 4:</strong> Check-out y traslado al aeropuerto.</p>
-        `
-    },
-    viaje2: {
-        titulo: "Detalles del Viaje: Puerto Vallarta",
-        imagen: "files/img/viaje2.webp",
-        precio: "Total: $X,XXX MXN",
-        mensajeWhats: "Hola Viajes UV, quiero reservar el viaje a Puerto Vallarta",
-        incluye: [
-            "🚌 Transporte terrestre en autobús de primera clase.",
-            "🏨 Hospedaje por 3 días y 2 noches a pie de playa.",
-            "🍽️ Desayunos buffet incluidos.",
-            "🌊 Recorrido guiado por el malecón."
-        ],
-        itinerario: `
-            <p><strong>Día 1:</strong> Salida por la noche, viaje directo.</p>
-            <p><strong>Día 2:</strong> Llegada en la mañana, check-in y tarde libre.</p>
-            <p><strong>Día 3:</strong> Visita a Playa Las Ánimas (opcional).</p>
-            <p><strong>Día 4:</strong> Check-out a mediodía y regreso.</p>
-        `
-    },
-    viaje3: {
-        titulo: "Detalles del Viaje: Riviera Maya",
-        imagen: "files/img/viaje3.webp",
-        precio: "Total: $X,XXX MXN",
-        mensajeWhats: "Hola Viajes UV, quiero reservar el viaje a Riviera Maya",
-        incluye: [
-            "✈️ Vuelo redondo desde Monterrey/Saltillo.",
-            "🏨 Hospedaje por 4 días y 3 noches en Hotel 5 Estrellas.",
-            "🍹 Plan Todo Incluido (Desayuno, comida, cena y bebidas).",
-            "🚌 Traslados Aeropuerto - Hotel - Aeropuerto."
-        ],
-        itinerario: `
-            <p><strong>Día 1:</strong> Llegada al hotel, check-in y tarde libre en la alberca.</p>
-            <p><strong>Día 2:</strong> Tour en catamarán hacia Isla Mujeres.</p>
-            <p><strong>Día 3:</strong> Día libre y fiesta de despedida en la noche.</p>
-            <p><strong>Día 4:</strong> Check-out y traslado al aeropuerto.</p>
-        `
-    },
-    viaje4: {
-        titulo: "Detalles del Viaje: Mazatlán",
-        imagen: "files/img/viaje4.webp",
-        precio: "Total: $X,XXX MXN",
-        mensajeWhats: "Hola Viajes UV, quiero reservar el viaje a Mazatlán",
-        incluye: [
-            "✈️ Vuelo redondo desde Monterrey/Saltillo.",
-            "🏨 Hospedaje por 4 días y 3 noches en Hotel 5 Estrellas.",
-            "🍹 Plan Todo Incluido (Desayuno, comida, cena y bebidas).",
-            "🚌 Traslados Aeropuerto - Hotel - Aeropuerto."
-        ],
-        itinerario: `
-            <p><strong>Día 1:</strong> Llegada a Mazatlán, check-in y tarde libre en la playa.</p>
-            <p><strong>Día 2:</strong> Tour por la ciudad y visita a los principales sitios históricos.</p>
-            <p><strong>Día 3:</strong> Día libre para disfrutar de las actividades náuticas.</p>
-            <p><strong>Día 4:</strong> Check-out y regreso.</p>
-        `
-    }
-};
 
-// 2. SELECCIÓN DE ELEMENTOS DEL DOM
+// ==========================================
+// 2. LÓGICA DE DATOS Y RENDERIZADO (JSON)
+// ==========================================
+
+const contenedorTarjetas = document.getElementById('contenedor-tarjetas');
+let datosCentralizados = []; // Variable global para guardar los datos del JSON
+
+// A. Función para obtener los datos
+async function cargarViajes() {
+    try {
+        const respuesta = await fetch('./data/viajes.json');
+        datosCentralizados = await respuesta.json();
+        renderizarTarjetas();
+    } catch (error) {
+        console.error("Error al cargar el archivo JSON:", error);
+        contenedorTarjetas.innerHTML = "<p style='text-align:center;'>Hubo un error al cargar los viajes. Verifica tu conexión o el servidor local.</p>";
+    }
+}
+
+// B. Función para dibujar las tarjetas en el HTML
+function renderizarTarjetas() {
+    contenedorTarjetas.innerHTML = ''; 
+
+    datosCentralizados.forEach(viaje => {
+        // En tu JSON actual no pusiste el campo "badge" (¡Próximo!). 
+        // Si no existe, no dibujamos la etiqueta roja.
+        const badgeHTML = viaje.badge ? `<span class="badge">${viaje.badge}</span>` : '';
+        
+        const tarjetaHTML = `
+            <article class="trip-card">
+                <div class="trip-image" style="background-image: url('${viaje.imagen}');">
+                    ${badgeHTML}
+                </div>
+                <div class="trip-content">
+                    <h3>${viaje.nombre}</h3>
+                    <p class="date">${viaje.fecha}</p>
+                    <p class="description">${viaje.descripcion}</p>
+                    <div class="card-footer">
+                        <span class="price">Desde $${viaje.precio.toLocaleString()} MXN</span>
+                        <button class="btn-reservar" data-viaje="${viaje.id}">Ver Detalles</button>
+                    </div>
+                </div>
+            </article>
+        `;
+        contenedorTarjetas.innerHTML += tarjetaHTML;
+    });
+
+    // C. Una vez creadas las tarjetas, "activamos" los botones del modal
+    asignarEventosModal();
+}
+
+// ==========================================
+// 3. LÓGICA DE LA VENTANA MODAL
+// ==========================================
+
 const modalDetalles = document.getElementById('modal-detalles');
 const btnCerrarModal = document.querySelector('.close-modal');
+const modalBody = document.querySelector('.modal-body');
 
-// Elementos a modificar dinámicamente
+// Elementos dinámicos del modal
 const modalTitulo = document.querySelector('.modal-title');
 const modalImg = document.querySelector('.modal-img');
 const modalLista = document.getElementById('modal-lista');
@@ -116,42 +103,50 @@ const modalItinerario = document.getElementById('modal-itinerario');
 const modalPrecio = document.querySelector('.modal-price');
 const modalEnlaceWhats = document.querySelector('.modal-btn');
 
-// 3. LÓGICA PARA ABRIR Y LLENAR EL MODAL
-const botonesVerDetalles = document.querySelectorAll('.btn-reservar');
+function asignarEventosModal() {
+    const botonesVerDetalles = document.querySelectorAll('.btn-reservar');
 
-botonesVerDetalles.forEach(boton => {
-    boton.addEventListener('click', (e) => {
-        // Obtenemos el ID del viaje (cancun o vallarta)
-        const idViaje = e.target.getAttribute('data-viaje');
-        const datos = baseDeDatosViajes[idViaje];
+    botonesVerDetalles.forEach(boton => {
+        boton.addEventListener('click', (e) => {
+            const idViaje = e.target.getAttribute('data-viaje');
+            
+            // BUSCAMOS EL VIAJE EN EL JSON CARGADO
+            const datos = datosCentralizados.find(viaje => viaje.id === idViaje);
 
-        // Verificamos que exista información para ese viaje
-        if (datos) {
-            // Actualizamos textos e imágenes
-            modalTitulo.textContent = datos.titulo;
-            modalImg.src = datos.imagen;
-            modalPrecio.textContent = datos.precio;
+            if (datos) {
+                modalTitulo.textContent = `Detalles del Viaje: ${datos.nombre}`;
+                modalImg.src = datos.imagen;
+                modalPrecio.textContent = `Total: $${datos.precio.toLocaleString()} MXN`;
+                
+                modalEnlaceWhats.href = `https://wa.me/528445512379?text=${encodeURIComponent(datos.mensajeWhats)}`;
 
-            // Actualizamos el enlace de WhatsApp codificando el mensaje para la URL
-            modalEnlaceWhats.href = `https://wa.me/528445512379?text=${encodeURIComponent(datos.mensajeWhats)}`;
+                // Limpiamos y llenamos la lista de "Qué incluye"
+                modalLista.innerHTML = "";
+                datos.incluye.forEach(item => {
+                    modalLista.innerHTML += `<li>${item}</li>`;
+                });
 
-            // Limpiamos y llenamos la lista de "Qué incluye"
-            modalLista.innerHTML = "";
-            datos.incluye.forEach(item => {
-                modalLista.innerHTML += `<li>${item}</li>`;
-            });
+                // Limpiamos y llenamos el itinerario (Tu JSON lo tiene como arreglo de strings)
+                modalItinerario.innerHTML = "";
+                datos.itinerario.forEach(dia => {
+                    // Formatea "Día X:" en negritas usando split
+                    const partes = dia.split(": ");
+                    if(partes.length > 1) {
+                         modalItinerario.innerHTML += `<p><strong>${partes[0]}:</strong> ${partes[1]}</p>`;
+                    } else {
+                         modalItinerario.innerHTML += `<p>${dia}</p>`;
+                    }
+                });
+            }
 
-            // Llenamos el itinerario usando innerHTML porque contiene etiquetas <p> y <strong>
-            modalItinerario.innerHTML = datos.itinerario;
-        }
-
-        // Mostramos el modal y bloqueamos el scroll del fondo
-        modalDetalles.classList.add('active');
-        document.body.style.overflow = 'hidden';
+            // Mostrar el modal
+            modalDetalles.classList.add('active');
+            document.body.style.overflow = 'hidden'; 
+        });
     });
-});
+}
 
-// 4. LÓGICA PARA CERRAR EL MODAL
+// Lógica para cerrar el modal
 btnCerrarModal.addEventListener('click', cerrarModal);
 
 modalDetalles.addEventListener('click', (e) => {
@@ -163,24 +158,12 @@ modalDetalles.addEventListener('click', (e) => {
 function cerrarModal() {
     modalDetalles.classList.remove('active');
     document.body.style.overflow = 'auto';
-}
-
-// LÓGICA PARA CERRAR EL MODAL REINICIANDO EL SCROLL
-const modalBody = document.querySelector('.modal-body');
-function cerrarModal() {
-    modalDetalles.classList.remove('active');
-    document.body.style.overflow = 'auto';
     setTimeout(() => {
-        modalBody.scrollTop = 0; // Reinicia el scroll del modal al cerrar
-    }, 300); // Espera a que la animación de cierre termine
+        modalBody.scrollTop = 0;
+    }, 300);
 }
 
-if ('scrollRestoration' in history) {
-    history.scrollRestoration = 'manual';
-}
-window.addEventListener('beforeunload', () => {
-    window.scrollTo(0, 0);
-});
-window.addEventListener('load', () => {
-    window.scrollTo(0, 0);
-});
+// ==========================================
+// 4. INICIALIZAR LA APLICACIÓN
+// ==========================================
+cargarViajes();

@@ -37,62 +37,9 @@
     <!-- Sección de Viajes -->
     <main id="viajes" class="destinos-container">
         <h2 class="section-title">Nuestros Próximos Viajes</h2>
-
-        <div class="trips-grid">
-            <!-- Tarjeta de viaje 1 -->
-            <article class="trip-card">
-                <div class="trip-image viaje1">
-                    <span class="badge">¡Próximo!</span>
-                </div>
-                <div class="trip-content">
-                    <h3>Viaje 1</h3>
-                    <p class="date">📅 Fecha </p>
-                    <p class="description">Descripción del viaje 1.</p>
-                    <div class="card-footer">
-                        <span class="price">Desde $X,XXX MXN</span>
-                        <button class="btn-reservar" data-viaje="viaje1">Ver Detalles</button>
-                    </div>
-                </div>
-            </article>
-            <!-- Tarjeta de viaje 2 -->
-            <article class="trip-card">
-                <div class="trip-image viaje2"></div>
-                <div class="trip-content">
-                    <h3>Viaje 2</h3>
-                    <p class="date">📅 Fecha</p>
-                    <p class="description">Descripción del viaje 2.</p>
-                    <div class="card-footer">
-                        <span class="price">Desde $X,XXX MXN</span>
-                        <button class="btn-reservar" data-viaje="viaje2">Ver Detalles</button>
-                    </div>
-                </div>
-            </article>
-            <!-- Tarjeta de viaje 3 -->
-            <article class="trip-card">
-                <div class="trip-image viaje3"></div>
-                <div class="trip-content">
-                    <h3>Viaje 3</h3>
-                    <p class="date">📅 Fecha</p>
-                    <p class="description">Descripción del viaje 3.</p>
-                    <div class="card-footer">
-                        <span class="price">Desde $X,XXX MXN</span>
-                        <button class="btn-reservar" data-viaje="viaje3">Ver Detalles</button>
-                    </div>
-                </div>
-            </article>
-            <!-- Tarjeta de viaje 4 -->
-            <article class="trip-card">
-                <div class="trip-image viaje4"></div>
-                <div class="trip-content">
-                    <h3>Viaje 4</h3>
-                    <p class="date">📅 Fecha</p>
-                    <p class="description">Descripción del viaje 4.</p>
-                    <div class="card-footer">
-                        <span class="price">Desde $X,XXX MXN</span>
-                        <button class="btn-reservar" data-viaje="viaje4">Ver Detalles</button>
-                    </div>
-                </div>
-            </article>
+        <!-- AQUÍ JAVASCRIPT INYECTARÁ LAS TARJETAS -->
+        <div class="trips-grid" id="contenedor-tarjetas">
+            <!-- El contenido se generará dinámicamente -->
         </div>
     </main>
     <!-- VENTANA MODAL DE DETALLES -->
