@@ -2,13 +2,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Poppins:wght@300;400;600&display=swap');
 
 :root {
-    /* Paleta de colores basada en tu imagen */
     --primary-blue: #02092c;
-    /* Azul oscuro del logo */
     --light-blue-bg: #e3f2fd;
-    /* Fondo celeste de la imagen */
     --accent-cyan: #3fa9f5;
-    /* Color del avión en el logo */
     --white: #ffffff;
     --text-dark: #333333;
     --text-gray: #666666;
@@ -23,7 +19,6 @@
 body {
     font-family: 'Poppins', sans-serif;
     background-color: var(--light-blue-bg);
-    /* Aplicando el fondo celeste */
     color: var(--text-dark);
 }
 
@@ -56,6 +51,11 @@ body {
     top: 0;
     width: 100%;
     z-index: 1000;
+}
+
+.header.scrolled {
+    padding: 10px 50px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
 .logo-container {
@@ -364,6 +364,10 @@ body {
         padding: 15px 20px;
     }
     
+    .header.scrolled {
+        padding: 10px 20px; 
+    }
+
     .nav {
         display: flex;
         flex-wrap: wrap;
@@ -377,5 +381,9 @@ body {
 
     .trips-grid {
         grid-template-columns: 1fr;
+    }
+
+    .hero {
+        margin-top: 180px; /* Si sigue tapando el texto, súbele a 200px o 220px */
     }
 }
