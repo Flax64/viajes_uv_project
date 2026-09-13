@@ -41,7 +41,7 @@
         <div class="trips-grid">
             <!-- Tarjeta de viaje 1 -->
             <article class="trip-card">
-                <div class="trip-image cancun">
+                <div class="trip-image viaje1">
                     <span class="badge">¡Próximo!</span>
                 </div>
                 <div class="trip-content">
@@ -51,13 +51,13 @@
                         redondo, hospedaje y todo incluido.</p>
                     <div class="card-footer">
                         <span class="price">Desde $8,500 MXN</span>
-                        <button class="btn-reservar">Ver Detalles</button>
+                        <button class="btn-reservar" data-viaje="viaje1">Ver Detalles</button>
                     </div>
                 </div>
             </article>
             <!-- Tarjeta de viaje 2 -->
             <article class="trip-card">
-                <div class="trip-image vallarta"></div>
+                <div class="trip-image viaje2"></div>
                 <div class="trip-content">
                     <h3>Puerto Vallarta</h3>
                     <p class="date">📅 Mayo</p>
@@ -65,7 +65,7 @@
                         garantizada para tu grupo.</p>
                     <div class="card-footer">
                         <span class="price">Desde $7,200 MXN</span>
-                        <button class="btn-reservar">Ver Detalles</button>
+                        <button class="btn-reservar" data-viaje="viaje2">Ver Detalles</button>
                     </div>
                 </div>
             </article>
@@ -82,22 +82,16 @@
 
             <!-- Cuerpo del Modal (ESTA ES LA ZONA CON SCROLL) -->
             <div class="modal-body">
-                <img src="files/img/cancun.webp" alt="Cancún" class="modal-img">
+                <img src="files/img/cancun.webp" alt="Viaje" class="modal-img">
                 <h4>¿Qué incluye el paquete?</h4>
-                <ul class="modal-list">
-                    <li>✈️ Vuelo redondo desde Monterrey/Saltillo.</li>
-                    <li>🏨 Hospedaje por 4 días y 3 noches en Hotel 5 Estrellas.</li>
-                    <li>🍹 Plan Todo Incluido (Desayuno, comida, cena y bebidas ilimitadas).</li>
-                    <li>🚌 Traslados Aeropuerto - Hotel - Aeropuerto.</li>
-                    <li>🎉 Acceso a evento exclusivo en la playa.</li>
-                    <li>🛡️ Seguro de viajero.</li>
+                <ul class="modal-list" id="modal-lista">
+                    <!-- JS llenará esto -->
                 </ul>
 
                 <h4>Itinerario</h4>
-                <p><strong>Día 1:</strong> Llegada al hotel, check-in y tarde libre en la alberca.</p>
-                <p><strong>Día 2:</strong> Tour en catamarán hacia Isla Mujeres (opcional) o día de playa.</p>
-                <p><strong>Día 3:</strong> Día libre y fiesta de despedida en la noche.</p>
-                <p><strong>Día 4:</strong> Check-out y traslado al aeropuerto para el regreso.</p>
+                <div id="modal-itinerario">
+                    <!-- JS llenará esto -->
+                </div>
 
                 <h4>Términos y Condiciones</h4>
                 <p>Reserva con $2,000 MXN. El resto se puede liquidar hasta 15 días antes del viaje. Precios sujetos a

@@ -141,11 +141,11 @@ body {
 }
 
 /* Imágenes */
-.cancun {
+.viaje1 {
     background-image: url('../files/img/cancun.webp');
 }
 
-.vallarta {
+.viaje2 {
     background-image: url('../files/img/puerto_vallarta.webp');
 }
 

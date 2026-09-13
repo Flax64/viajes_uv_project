@@ -31,29 +31,103 @@ enlacesMenu.forEach(enlace => {
     });
 });
 
-// SELECCIÓN DE ELEMENTOS PARA EL MODAL
+// 1. BASE DE DATOS LOCAL DE LOS VIAJES
+const baseDeDatosViajes = {
+    viaje1: {
+        titulo: "Detalles del Viaje: Cancún",
+        imagen: "files/img/cancun.webp",
+        precio: "Total: $8,500 MXN",
+        mensajeWhats: "Hola Viajes UV, quiero reservar el viaje a Cancún",
+        incluye: [
+            "✈️ Vuelo redondo desde Monterrey/Saltillo.",
+            "🏨 Hospedaje por 4 días y 3 noches en Hotel 5 Estrellas.",
+            "🍹 Plan Todo Incluido (Desayuno, comida, cena y bebidas).",
+            "🚌 Traslados Aeropuerto - Hotel - Aeropuerto."
+        ],
+        itinerario: `
+            <p><strong>Día 1:</strong> Llegada al hotel, check-in y tarde libre en la alberca.</p>
+            <p><strong>Día 2:</strong> Tour en catamarán hacia Isla Mujeres.</p>
+            <p><strong>Día 3:</strong> Día libre y fiesta de despedida en la noche.</p>
+            <p><strong>Día 4:</strong> Check-out y traslado al aeropuerto.</p>
+        `
+    },
+    viaje2: {
+        titulo: "Detalles del Viaje: Puerto Vallarta",
+        imagen: "files/img/puerto_vallarta.webp",
+        precio: "Total: $7,200 MXN",
+        mensajeWhats: "Hola Viajes UV, quiero reservar el viaje a Puerto Vallarta",
+        incluye: [
+            "🚌 Transporte terrestre en autobús de primera clase.",
+            "🏨 Hospedaje por 3 días y 2 noches a pie de playa.",
+            "🍽️ Desayunos buffet incluidos.",
+            "🌊 Recorrido guiado por el malecón."
+        ],
+        itinerario: `
+            <p><strong>Día 1:</strong> Salida por la noche, viaje directo.</p>
+            <p><strong>Día 2:</strong> Llegada en la mañana, check-in y tarde libre.</p>
+            <p><strong>Día 3:</strong> Visita a Playa Las Ánimas (opcional).</p>
+            <p><strong>Día 4:</strong> Check-out a mediodía y regreso.</p>
+        `
+    }
+};
+
+// 2. SELECCIÓN DE ELEMENTOS DEL DOM
 const modalDetalles = document.getElementById('modal-detalles');
-const botonesVerDetalles = document.querySelectorAll('.btn-reservar'); // Los botones de tus tarjetas
 const btnCerrarModal = document.querySelector('.close-modal');
 
-// ABRIR EL MODAL: Recorre todos los botones "Ver Detalles" y les agrega el evento
+// Elementos a modificar dinámicamente
+const modalTitulo = document.querySelector('.modal-title');
+const modalImg = document.querySelector('.modal-img');
+const modalLista = document.getElementById('modal-lista');
+const modalItinerario = document.getElementById('modal-itinerario');
+const modalPrecio = document.querySelector('.modal-price');
+const modalEnlaceWhats = document.querySelector('.modal-btn');
+
+// 3. LÓGICA PARA ABRIR Y LLENAR EL MODAL
+const botonesVerDetalles = document.querySelectorAll('.btn-reservar');
+
 botonesVerDetalles.forEach(boton => {
-    boton.addEventListener('click', () => {
+    boton.addEventListener('click', (e) => {
+        // Obtenemos el ID del viaje (cancun o vallarta)
+        const idViaje = e.target.getAttribute('data-viaje');
+        const datos = baseDeDatosViajes[idViaje];
+
+        // Verificamos que exista información para ese viaje
+        if (datos) {
+            // Actualizamos textos e imágenes
+            modalTitulo.textContent = datos.titulo;
+            modalImg.src = datos.imagen;
+            modalPrecio.textContent = datos.precio;
+            
+            // Actualizamos el enlace de WhatsApp codificando el mensaje para la URL
+            modalEnlaceWhats.href = `https://wa.me/528445512379?text=${encodeURIComponent(datos.mensajeWhats)}`;
+
+            // Limpiamos y llenamos la lista de "Qué incluye"
+            modalLista.innerHTML = "";
+            datos.incluye.forEach(item => {
+                modalLista.innerHTML += `<li>${item}</li>`;
+            });
+
+            // Llenamos el itinerario usando innerHTML porque contiene etiquetas <p> y <strong>
+            modalItinerario.innerHTML = datos.itinerario;
+        }
+
+        // Mostramos el modal y bloqueamos el scroll del fondo
         modalDetalles.classList.add('active');
         document.body.style.overflow = 'hidden'; 
     });
 });
 
-// CERRAR EL MODAL CON LA 'X'
-btnCerrarModal.addEventListener('click', () => {
-    modalDetalles.classList.remove('active');
-    document.body.style.overflow = 'auto';
-});
+// 4. LÓGICA PARA CERRAR EL MODAL
+btnCerrarModal.addEventListener('click', cerrarModal);
 
-// CERRAR EL MODAL HACIENDO CLIC AFUERA DE LA CAJA BLANCA
 modalDetalles.addEventListener('click', (e) => {
     if (e.target === modalDetalles) {
-        modalDetalles.classList.remove('active');
-        document.body.style.overflow = 'auto';
+        cerrarModal();
     }
 });
+
+function cerrarModal() {
+    modalDetalles.classList.remove('active');
+    document.body.style.overflow = 'auto';
+}
