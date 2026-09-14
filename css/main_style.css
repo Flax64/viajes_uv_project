@@ -115,9 +115,9 @@ body {
 
 /* --- SECCIÓN DE VIAJES (GRID) --- */
 .destinos-container {
-    max-width: 1100px;
+    max-width: 1400px;
     margin: 0 auto;
-    padding: 0 20px 80px;
+    padding: 0 40px 80px;
 }
 
 .section-title {
@@ -150,7 +150,7 @@ body {
 }
 
 .trip-image {
-    height: 250px;
+    height: 280px;
     background-size: cover;
     background-position: center;
     position: relative;
@@ -381,6 +381,10 @@ body {
 
     .trips-grid {
         grid-template-columns: 1fr;
+    }
+
+    .destinos-container {
+        padding: 0 15px 60px;
     }
 
     .hero {
