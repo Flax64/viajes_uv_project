@@ -396,3 +396,13 @@ body {
         box-sizing: border-box;
     }
 }
+
+@media (max-width: 950px) and (orientation: landscape) {
+    .header{
+        position: relative;
+    }
+
+    .hero {
+        margin-top: 0;
+    }
+}
