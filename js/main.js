@@ -98,7 +98,7 @@ const modalBody = document.querySelector('.modal-body');
 
 // Elementos dinámicos del modal
 const modalTitulo = document.querySelector('.modal-title');
-const modalImg = document.querySelector('.modal-img');
+const modalVideo = document.querySelector('.modal-video');
 const modalLista = document.getElementById('modal-lista');
 const modalItinerario = document.getElementById('modal-itinerario');
 const modalPrecio = document.querySelector('.modal-price');
@@ -116,7 +116,7 @@ function asignarEventosModal() {
 
             if (datos) {
                 modalTitulo.textContent = `Detalles del Viaje: ${datos.nombre}`;
-                modalImg.src = datos.imagen;
+                modalVideo.src = datos.video;
                 modalPrecio.textContent = `Total: $${datos.precio.toLocaleString()} MXN`;
                 
                 modalEnlaceWhats.href = `https://wa.me/528445512379?text=${encodeURIComponent(datos.mensajeWhats)}`;
@@ -159,6 +159,7 @@ modalDetalles.addEventListener('click', (e) => {
 function cerrarModal() {
     modalDetalles.classList.remove('active');
     document.body.style.overflow = 'auto';
+    modalVideo.pause();
     setTimeout(() => {
         modalBody.scrollTop = 0;
     }, 300);

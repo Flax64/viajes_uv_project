@@ -289,12 +289,13 @@ body {
 }
 
 /* --- ESTITILOS INTERNOS DEL BODY --- */
-.modal-img {
+.modal-video {
     width: 100%;
-    height: 200px;
+    height: 250px; 
     object-fit: cover;
     border-radius: 10px;
     margin-bottom: 20px;
+    background-color: #000000; /* Fondo negro clásico de reproductor */
 }
 
 .modal-body h4 {
