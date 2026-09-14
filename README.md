@@ -22,47 +22,120 @@ viajes_uv_project/
 └── README.md                       # Documentación del proyecto
 ```
 
-# Documentación Técnica: Interfaz de Usuario "Viajes UV"
+# Documentación Estructural: `index.html` (Proyecto Viajes UV)
 
-## 1. Descripción General
-El archivo `index.html` define la estructura principal de una *Landing Page* (página de aterrizaje) publicitaria para **"Viajes UV"**, una agencia enfocada en viajes grupales a la playa. La interfaz consta de un sistema de navegación estático, un banner de bienvenida, una cuadrícula dinámica de productos (viajes) y una ventana modal interactiva para la visualización de detalles.
+## Descripción General
+El archivo `index.html` sirve como el punto de entrada principal (entry point) y el esqueleto base para la aplicación web "Viajes UV". Está diseñado bajo una arquitectura de "Frontend Estático con Inyección Dinámica", donde la estructura principal está predefinida, pero el contenido de los viajes y los modales se genera en tiempo de ejecución a través de JavaScript y un archivo JSON.
 
-## 2. Estructura del Documento (DOM)
+---
 
-### 2.1. Cabecera (`<head>`)
-Contiene los metadatos y enlaces a recursos externos necesarios para el renderizado inicial:
-* **Meta etiquetas:** Configuración de caracteres (`UTF-8`) y *viewport* para asegurar la responsividad en dispositivos móviles.
-* **Tipografía:** Preconexión e importación de la fuente "Edu NSW ACT Cursive" desde Google Fonts.
-* **Hojas de Estilo:** Enlace al archivo principal de estilos (`css/main_style.css`).
+## 1. Configuración del Documento (`<head>`)
+Contiene los metadatos esenciales, enlaces a recursos externos y configuraciones de optimización (WPO).
 
-### 2.2. Cuerpo del Documento (`<body>`)
-Identificado con el atributo `id="inicio"` para funcionar como ancla superior del sistema de desplazamiento suave (*smooth scroll*). Se divide en cuatro componentes lógicos principales:
+*   **Meta Viewport:** Configurado para diseño responsivo (`width=device-width, initial-scale=1.0`).
+*   **Favicon:** Implementación optimizada usando formato WebP (`type="image/webp"`) apuntando a `files/img/logo_viajes_uv.webp`.
+*   **Tipografías (Google Fonts):** Precarga (`preconnect`) e importación de la fuente principal `Edu NSW ACT Cursive`.
+*   **Hoja de Estilos:** Enlace al archivo principal de diseño modular `css/main_style.css`.
 
-#### A. Barra de Navegación (`<header class="header">`)
-* **Contenedor del Logo (`.logo-container`):** Agrupa la imagen del logotipo (`.logo-img`) optimizada en formato WebP y el nombre de la empresa (`.logo-text`).
-* **Menú de Navegación (`<nav>`):** Contiene enlaces internos (Inicio y Viajes Disponibles) y un enlace externo hacia la API de WhatsApp para contacto directo (`target="_blank"` para no abandonar la página web).
+---
 
-#### B. Banner Principal (`<section class="hero">`)
-* Sección de impacto visual diseñada para captar la atención del usuario inmediatamente. Contiene el título principal de la campaña (h2) y una breve descripción de los servicios.
+## 2. Componentes Principales de la Interfaz (`<body>`)
 
-#### C. Catálogo de Viajes (`<main id="viajes">`)
-* **Contenedor Grid (`.trips-grid`):** Un contenedor diseñado para mostrar tarjetas en un formato de cuadrícula (2x2 en escritorio y 1 columna en móvil).
-* **Tarjetas de Producto (`<article class="trip-card">`):** Etiquetas semánticas `<article>` que representan de forma independiente cada paquete de viaje. Cada tarjeta contiene:
-  * **Imagen (`.trip-image`):** Contenedor div que maneja la imagen de fondo mediante clases CSS (`.viaje1`, `.viaje2`, etc.). Incluye una etiqueta *badge* opcional para destacar ofertas ("¡Próximo!").
-  * **Contenido (`.trip-content`):** Muestra el título, fecha, descripción corta y precio del paquete.
-  * **Botón de Acción (`.btn-reservar`):** Implementa el atributo personalizado `data-viaje="viajeX"`. Este atributo es crucial, ya que actúa como llave primaria para que el motor de JavaScript identifique qué información extraer de la base de datos local y renderizar en el modal.
+### A. Encabezado de Navegación (`<header class="header">`)
+Barra de navegación principal que soporta efectos de scroll y comportamiento *sticky/relative* según el dispositivo.
+*   **Logo:** Utiliza el atributo `loading="lazy"` para optimizar la carga inicial.
+*   **Menú (`<nav>`):** Contiene enlaces con anclas (`#inicio`, `#viajes`) para desplazamiento suave (Smooth Scroll) gestionado por JS, y un enlace externo directo a WhatsApp.
 
-#### D. Ventana Modal de Detalles (`<div id="modal-detalles">`)
-Estructura flotante y oculta por defecto (controlada vía CSS y manipulada por JavaScript) diseñada para mostrar la información completa de un viaje sin necesidad de recargar la página. Se divide en:
-* **Header (`.modal-header`):** Título dinámico y botón de cierre (`.close-modal`).
-* **Body (`.modal-body`):** Área con desplazamiento vertical (*scroll*) independiente. Contiene nodos HTML vacíos o marcadores (`#modal-lista` y `#modal-itinerario`) que esperan ser inyectados dinámicamente con información por el script de JS.
-* **Footer (`.modal-footer`):** Muestra el precio total dinámico y el botón final de conversión (Enlace dinámico hacia WhatsApp con mensaje pre-rellenado).
+### B. Banner Principal (`<section class="hero">`)
+Sección de impacto visual que recibe al usuario. Diseñada para alojar una imagen de fondo de alta calidad gestionada a través de CSS con un filtro oscurecedor (overlay) para garantizar la legibilidad del texto.
 
-### 2.3. Scripts de Interactividad
-* `<script src="js/main.js"></script>`: Importación del archivo lógico al final del cuerpo del documento. Se coloca aquí para garantizar que todo el árbol DOM esté completamente cargado y renderizado antes de que JavaScript intente acceder a los elementos (evitando errores de nodos nulos).
+### C. Contenedor de Datos Dinámicos (`<main id="viajes">`)
+El núcleo de la aplicación donde se renderizan los destinos turísticos.
+*   **Punto de Inyección:** El `<div id="contenedor-tarjetas">` actúa como un contenedor vacío. Es el objetivo principal donde el script `main.js` inyecta las etiquetas `<article class="trip-card">` generadas a partir de la lectura del archivo `viajes.json`.
 
-## 3. Buenas Prácticas de Ingeniería Web Implementadas
-1. **HTML5 Semántico:** Uso correcto de etiquetas como `<header>`, `<nav>`, `<main>`, `<section>` y `<article>`, lo cual mejora la accesibilidad (lectores de pantalla) y el posicionamiento SEO.
-2. **Arquitectura Modular:** Separación clara de responsabilidades (HTML para estructura, CSS para presentación, JS para lógica).
-3. **Data Attributes:** Uso de `data-viaje` en lugar de IDs rígidos o manipulación directa del DOM basada en textos, permitiendo una arquitectura de "plantilla única" para el modal.
-4. **Optimización de Recursos:** Implementación de imágenes en formato `.webp` para reducir los tiempos de carga y consumo de ancho de banda.
+---
+
+## 3. Sistema de Ventana Modal (`#modal-detalles`)
+Componente oculto por defecto que actúa como una capa superpuesta (`overlay`) para mostrar información detallada de un viaje específico sin abandonar la página principal.
+
+*   **Reproductor Multimedia:** Utiliza una etiqueta `<video class="modal-video" controls preload="metadata">`. El atributo `preload="metadata"` optimiza el rendimiento al descargar solo los datos básicos del video hasta que el usuario decida reproducirlo.
+*   **Listas Dinámicas:** Contiene contenedores vacíos (`#modal-lista` y `#modal-itinerario`) que esperan la inserción estructurada de datos (etiquetas `<li>` y `<p>`) desde el script.
+*   **Llamado a la Acción (CTA):** El botón de reserva (`.modal-btn`) tiene un atributo temporal `href="#"`. La URL final, que incluye la API de WhatsApp con el texto codificado (`encodeURIComponent`), es asignada dinámicamente por JavaScript en el momento del clic.
+
+---
+
+## 4. Diccionario de Nodos (DOM Bindings para JavaScript)
+Tabla de referencia rápida de los identificadores (`id`) y clases (`class`) utilizados por `main.js` para manipular el DOM:
+
+| Elemento / Nodo | Selector (ID/Class) | Función en la Lógica (JS) |
+| :--- | :--- | :--- |
+| **Punto de Inyección Grid** | `#contenedor-tarjetas` | Recibe el HTML concatenado de todas las tarjetas de viaje. |
+| **Capa Overlay del Modal** | `#modal-detalles` | Controla la visibilidad (añadiendo/removiendo la clase `active`). |
+| **Botón de Cierre** | `.close-modal` | Dispara el evento para ocultar el modal y pausar el video. |
+| **Título del Modal** | `.modal-title` | Actualiza el destino seleccionado (Ej. "Detalles del Viaje: Cancún"). |
+| **Reproductor de Video** | `.modal-video` | Actualiza el atributo `src` y recibe la instrucción `.pause()`. |
+| **Lista de Inclusiones** | `#modal-lista` | Recibe el mapeo del array `incluye` del JSON. |
+| **Itinerario** | `#modal-itinerario` | Recibe el mapeo estructurado del array `itinerario`. |
+| **Precio Total** | `.modal-price` | Renderiza el costo numérico formateado (`toLocaleString`). |
+| **Botón WhatsApp** | `.modal-btn` | Actualiza el atributo `href` con la URL generada. |
+| **Cuerpo del Modal** | `.modal-body` | Utilizado para reiniciar el scroll (`scrollTop = 0`) al cerrar. |
+
+---
+
+## 5. Scripts Secundarios
+El documento finaliza con la importación del controlador lógico principal `<script src="js/main.js"></script>`, posicionado estratégicamente antes del cierre del `</body>` para evitar bloqueos en el renderizado inicial de la interfaz (Render-Blocking Resources).
+
+# Documentación Estructural: `css/main_style.css` (Proyecto Viajes UV)
+
+## Descripción General
+El archivo `main_style.css` contiene todo el diseño visual, la tematización y el comportamiento responsivo de la aplicación "Viajes UV". Está construido utilizando CSS puro (Vanilla CSS) bajo una arquitectura modular, haciendo uso extensivo de **Flexbox**, **CSS Grid** y **Custom Properties (Variables)** para mantener un código limpio, escalable y fácil de mantener.
+
+---
+
+## 1. Tematización y Variables Globales (`:root`)
+El diseño utiliza variables CSS para definir la paleta de colores corporativa. Esto permite cambiar todo el esquema de color de la aplicación modificando un solo bloque de código.
+
+*   `--primary-blue` (`#02092c`): Azul marino profundo utilizado en títulos y el encabezado para transmitir confianza y profesionalismo.
+*   `--light-blue-bg` (`#e3f2fd`): Fondo general de la página que da un aspecto limpio y fresco.
+*   `--accent-cyan` (`#3fa9f5`): Color de acción (Call to Action) utilizado en botones, fechas y detalles para atraer la vista del usuario.
+*   `--white`, `--text-dark`, `--text-gray`: Escala de grises para fondos de tarjetas y tipografía, garantizando un alto contraste (Accesibilidad web).
+
+> **Tipografías:** Se importan de Google Fonts. `Poppins` (geométrica y moderna) para textos generales y lectura, y `Caveat` (estilo cursivo/handwritten) exclusivamente para el logo.
+
+---
+
+## 2. Componentes UI (User Interface)
+
+### A. Encabezado y Navegación (`.header`, `.nav`)
+*   **Posicionamiento:** Utiliza `position: fixed;` con un alto índice de profundidad (`z-index: 1000`) para mantenerse siempre visible.
+*   **Efecto Scroll:** Al hacer scroll, JavaScript añade la clase `.scrolled`, la cual reduce el padding y ajusta la sombra (`box-shadow`) mediante una transición suave para optimizar el espacio visual.
+
+### B. Banner Principal (`.hero`)
+*   **Fondo Avanzado:** Aplica un `linear-gradient` semitransparente por encima de la imagen de fondo (`url(...)`). Este overlay oscuro garantiza que el título blanco tenga una legibilidad perfecta (AA Contrast) sin importar qué tan brillante sea la fotografía.
+*   **Alineación:** Flexbox centra el contenido absoluta y dinámicamente en los ejes X e Y.
+
+### C. Tarjetas de Viaje (`.trip-card`)
+*   **Grid System:** El contenedor padre (`.trips-grid`) utiliza `display: grid;` con `grid-template-columns: repeat(2, 1fr);` para crear una cuadrícula perfecta de 2 columnas en pantallas grandes.
+*   **Efectos Hover:** Las tarjetas cuentan con transformaciones en el eje Y (`translateY(-8px)`) y un aumento en la difusión de la sombra para crear un efecto de flotación táctil e interactivo.
+*   **Imágenes:** Se controlan mediante `background-size: cover;` en un `div` de altura fija (280px), evitando que fotos de diferentes proporciones rompan el diseño de la tarjeta.
+
+### D. Ventana Modal (`.modal-box`, `.modal-overlay`)
+*   **Transiciones de Estado:** Utiliza `opacity` y `visibility` en lugar de `display: none;` para permitir animaciones de entrada fluidas al añadir la clase `.active`.
+*   **Reproductor de Video (`.modal-video`):** Altura fijada a 300px con `object-fit: cover` para emular el comportamiento de un banner cinematográfico, rellenando el marco sin distorsionar la imagen.
+
+---
+
+## 3. Estrategia de Responsividad (Media Queries)
+El código CSS adapta la interfaz a cualquier dispositivo interceptando dos puntos de quiebre (breakpoints) críticos:
+
+### `@media (max-width: 768px)` (Celulares en Vertical / Portrait)
+Reestructura el diseño para pantallas angostas.
+*   **Header:** Cambia de `row` a `column`, apilando el logo y el menú.
+*   **Grid:** Cambia a `grid-template-columns: 1fr;` para mostrar una sola tarjeta por fila.
+*   **Modal:** El botón de reserva ocupa el 100% del ancho (`width: 100%`) para facilitar el toque (Touch Target), y el video adopta una relación de aspecto dinámica (`aspect-ratio: 16/9`).
+
+### `@media (max-width: 950px) and (orientation: landscape)` (Celulares en Horizontal)
+Diseñado específicamente para mitigar la falta de altura cuando un usuario gira su dispositivo.
+*   **Header Desanclado:** Cambia el menú de `fixed` a `relative`, permitiendo que desaparezca al hacer scroll para liberar el 100% de la pantalla.
+*   **Optimización del Modal:** Reduce los márgenes (`padding`), limita la altura del video a `150px` (desactivando el 16:9), y devuelve el botón y el precio a una misma línea (`flex-direction: row`) para evitar el aplastamiento del contenido vertical.
+
