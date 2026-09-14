@@ -115,9 +115,9 @@ body {
 
 /* --- SECCIÓN DE VIAJES (GRID) --- */
 .destinos-container {
-    max-width: 1400px;
+    max-width: 92%;
     margin: 0 auto;
-    padding: 0 40px 80px;
+    padding: 0 0 80px;
 }
 
 .section-title {
