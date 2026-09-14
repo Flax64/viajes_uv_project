@@ -13,11 +13,9 @@ viajes_uv_project/
 ├── files/
 │   ├── img/
 │   │   └── logo_viajes_uv.webp     # Logotipo oficial de la empresa
-│   │   └── viaje1.webp
-│   │   └── viaje2.webp
-│   │   └── viaje3.webp
-│   │   └── viaje4.webp
-│   └── video/                      # Videos publicitarios de los destinos
+│   │   └── viaje.webp              # Imagen o imagenes de los viajes o destinos
+│   ├── video/                      
+│   |   └── video.mp4               # Videos publicitarios de los destinos
 ├── js/
 │   └── main.js                     # Lógica interactiva del sitio web
 ├── index.html                      # Página de inicio del sitio
