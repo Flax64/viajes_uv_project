@@ -57,14 +57,14 @@ async function cargarViajes() {
 
 // B. Función para dibujar las tarjetas en el HTML
 function renderizarTarjetas() {
-    contenedorTarjetas.innerHTML = ''; 
+    // 1. Creamos una variable vacía para almacenar todo el texto HTML
+    let htmlAcumulado = ''; 
 
     datosCentralizados.forEach(viaje => {
-        // En tu JSON actual no pusiste el campo "badge" (¡Próximo!). 
-        // Si no existe, no dibujamos la etiqueta roja.
         const badgeHTML = viaje.badge ? `<span class="badge">${viaje.badge}</span>` : '';
         
-        const tarjetaHTML = `
+        // 2. Sumamos el texto a la variable, NO al DOM
+        htmlAcumulado += `
             <article class="trip-card">
                 <div class="trip-image" style="background-image: url('${viaje.imagen}');">
                     ${badgeHTML}
@@ -80,10 +80,11 @@ function renderizarTarjetas() {
                 </div>
             </article>
         `;
-        contenedorTarjetas.innerHTML += tarjetaHTML;
     });
 
-    // C. Una vez creadas las tarjetas, "activamos" los botones del modal
+    // 3. Inyectamos al DOM una sola vez al terminar el ciclo
+    contenedorTarjetas.innerHTML = htmlAcumulado;
+
     asignarEventosModal();
 }
 
