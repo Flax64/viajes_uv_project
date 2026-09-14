@@ -375,4 +375,24 @@ body {
     .hero {
         margin-top: 180px;
     }
+
+        .modal-box {
+        max-width: 95%;
+    }
+
+    .modal-video {
+        height: auto;
+        aspect-ratio: 16/9; 
+    }
+
+    .modal-footer{
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .modal-btn {
+        width: 100%;
+        text-align: center;
+        box-sizing: border-box;
+    }
 }
