@@ -22,6 +22,8 @@ viajes_uv_project/
 └── README.md                       # Documentación del proyecto
 ```
 
+---
+
 # Documentación Estructural: `index.html` (Proyecto Viajes UV)
 
 ## Descripción General
@@ -85,6 +87,8 @@ Tabla de referencia rápida de los identificadores (`id`) y clases (`class`) uti
 ## 5. Scripts Secundarios
 El documento finaliza con la importación del controlador lógico principal `<script src="js/main.js"></script>`, posicionado estratégicamente antes del cierre del `</body>` para evitar bloqueos en el renderizado inicial de la interfaz (Render-Blocking Resources).
 
+---
+
 # Documentación Estructural: `css/main_style.css` (Proyecto Viajes UV)
 
 ## Descripción General
@@ -139,3 +143,54 @@ Diseñado específicamente para mitigar la falta de altura cuando un usuario gir
 *   **Header Desanclado:** Cambia el menú de `fixed` a `relative`, permitiendo que desaparezca al hacer scroll para liberar el 100% de la pantalla.
 *   **Optimización del Modal:** Reduce los márgenes (`padding`), limita la altura del video a `150px` (desactivando el 16:9), y devuelve el botón y el precio a una misma línea (`flex-direction: row`) para evitar el aplastamiento del contenido vertical.
 
+---
+
+# Documentación Estructural: `js/main.js` (Proyecto Viajes UV)
+
+## Descripción General
+El archivo `main.js` es el controlador lógico de la aplicación (Controlador en el patrón MVC). Está escrito en Vanilla JavaScript (ES6+) y se encarga de cuatro tareas fundamentales: gestionar los efectos visuales de la interfaz, consumir el archivo de datos JSON de forma asíncrona, renderizar el DOM optimizando el rendimiento, y controlar el estado y comportamiento de la ventana modal.
+
+---
+
+## 1. Efectos de Interfaz (UI & UX)
+Mejora la experiencia del usuario gestionando el comportamiento del scroll y la navegación.
+
+*   **Restauración Manual de Scroll:** Intercepta la API `history.scrollRestoration` para forzar a la página a cargar siempre desde la parte superior (inicio) tras un refresco, evitando que el navegador recuerde posiciones extrañas.
+*   **Header Dinámico:** Un `EventListener` en el objeto `window` detecta cuando el usuario baja más de 50px (`scrollY > 50`) y añade la clase `.scrolled` al encabezado para hacerlo más compacto y aplicar una sombra.
+*   **Smooth Scroll Dinámico:** Intercepta los clics en los enlaces de ancla (`href^="#"`). 
+    *   *Optimización:* Utiliza `getBoundingClientRect()` y `offsetHeight` para calcular dinámicamente la altura exacta del menú en tiempo real (vital para diferenciar el menú de PC vs. el menú alto de celular).
+    *   Aplica `window.scrollTo` con comportamiento `smooth` y una compensación de `+ 15px` para que el título de la sección respire y no quede tapado.
+
+---
+
+## 2. Lógica de Datos y Renderizado (JSON)
+Separa los datos del diseño, permitiendo escalabilidad sin necesidad de tocar el HTML.
+
+*   **Variable Global (`datosCentralizados`):** Actúa como la "memoria RAM" de la aplicación, guardando el JSON temporalmente para no tener que hacer múltiples peticiones de red (fetches) cuando el usuario abre diferentes modales.
+*   **`cargarViajes()` (Async/Await):** Utiliza la API `fetch` para llamar al archivo local `./data/viajes.json`. Incluye un bloque `try/catch` para interceptar errores de red o servidor y renderizar un mensaje de error amigable en el DOM.
+*   **`renderizarTarjetas()` (WPO - Web Performance Optimization):** 
+    *   Evita el *Reflow* y *Repaint* excesivo del navegador. En lugar de inyectar cada tarjeta una por una en el DOM dentro del ciclo `forEach`, concatena todo el código en una variable de texto (`htmlAcumulado`).
+    *   Realiza una única inyección al `innerHTML` del contenedor principal, mejorando drásticamente el rendimiento en dispositivos móviles.
+    *   Condiciona la creación de elementos secundarios (ej. la etiqueta `badge`) verificando su existencia en el objeto JSON.
+
+---
+
+## 3. Lógica de la Ventana Modal
+Controla la inyección de datos detallados, la interacción multimedia y la generación de llamadas a la acción (CTA).
+
+*   **Delegación y Binding (`asignarEventosModal`):** Se ejecuta *después* de renderizar las tarjetas para asegurar que los botones `.btn-reservar` existan en el DOM.
+*   **Inyección de Datos (Búsqueda por ID):** Cuando el usuario da clic a un botón, se extrae su atributo `data-viaje` y se utiliza la función `.find()` para localizar ese ID exacto dentro del array `datosCentralizados`.
+*   **Formateo Dinámico:**
+    *   **Arrays a Listas:** Recorre los arrays de `incluye` e `itinerario` para construir listas HTML (`<li>` y `<p>`).
+    *   **Bold Inteligente (Split):** Utiliza `.split(": ")` en el itinerario para separar palabras como "Día 1:" y envolverlas automáticamente en etiquetas `<strong>`.
+    *   **Formato de Moneda:** Aplica `.toLocaleString()` a los números enteros para añadir comas (ej. de `8500` a `8,500`).
+*   **Generador de URLs para WhatsApp:** Construye la URL de la API de WhatsApp de forma dinámica, aplicando `encodeURIComponent()` al texto del JSON para convertir los espacios y caracteres especiales en formato seguro para URLs (ej. `%20`).
+*   **Gestión del Estado del Modal (`cerrarModal`):** 
+    *   Detiene cualquier video en reproducción mediante `modalVideo.pause()` para evitar que el audio siga sonando en segundo plano.
+    *   Reactiva el scroll de la página web (`overflow = 'auto'`).
+    *   Utiliza un `setTimeout` de 300ms (sincronizado con la transición CSS) para regresar el scroll del cuerpo del modal a la parte superior (`scrollTop = 0`), preparándolo para la próxima vez que se abra.
+
+---
+
+## 4. Inicialización
+*   **`cargarViajes()`:** Única llamada en el nivel raíz del script que actúa como el gatillo (trigger) para desencadenar todo el flujo de carga, renderizado y asignación de eventos en cuanto el archivo JS es leído por el navegador.
