@@ -150,7 +150,7 @@ body {
 }
 
 .trip-image {
-    height: 220px;
+    height: 250px;
     background-size: cover;
     background-position: center;
     position: relative;
@@ -384,6 +384,6 @@ body {
     }
 
     .hero {
-        margin-top: 180px; /* Si sigue tapando el texto, súbele a 200px o 220px */
+        margin-top: 180px;
     }
 }
