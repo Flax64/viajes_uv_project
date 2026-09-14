@@ -405,4 +405,33 @@ body {
     .hero {
         margin-top: 0;
     }
+
+    .modal-box {
+        max-height: 95vh; 
+    }
+
+    .modal-header, .modal-body, .modal-footer {
+        padding: 10px 20px; 
+    }
+
+    .modal-video {
+        height: 150px; 
+        aspect-ratio: auto; 
+        margin-bottom: 10px;
+    }
+
+    .modal-footer {
+        flex-direction: row; 
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .modal-btn {
+        width: auto; 
+        padding: 10px 20px; 
+    }
+
+    .modal-price {
+        font-size: 1.1rem; 
+    }
 }
