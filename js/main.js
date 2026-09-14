@@ -26,7 +26,8 @@ enlacesMenu.forEach(enlace => {
         const destino = document.querySelector(this.getAttribute('href'));
         if (destino) {
             const posicionElemento = destino.getBoundingClientRect().top + window.scrollY;
-            const compensacionMenu = 95; // Tamaño del menú fijo
+            const alturaMenu = document.querySelector('.header').offsetHeight;
+            const compensacionMenu = alturaMenu + 15; 
             window.scrollTo({
                 top: posicionElemento - compensacionMenu,
                 behavior: 'smooth'
