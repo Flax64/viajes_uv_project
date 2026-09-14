@@ -22,23 +22,6 @@ body {
     color: var(--text-dark);
 }
 
-/* Imágenes */
-.viaje1 {
-    background-image: url('../files/img/viaje1.webp');
-}
-
-.viaje2 {
-    background-image: url('../files/img/viaje2.webp');
-}
-
-.viaje3 {
-    background-image: url('../files/img/viaje3.webp');
-}
-
-.viaje4 {
-    background-image: url('../files/img/viaje4.webp');
-}
-
 /* --- HEADER --- */
 .header {
     background-color: var(--white);
@@ -153,6 +136,7 @@ body {
     height: 280px;
     background-size: cover;
     background-position: center;
+    background-repeat: no-repeat;
     position: relative;
 }
 
