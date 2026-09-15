@@ -204,6 +204,15 @@ body {
     transition: background-color 0.3s, transform 0.2s;
 }
 
+.btn-reservar.btn-agotado {
+    background-color: #cccccc;
+    color: #666666;
+    cursor: not-allowed;
+    pointer-events: none;
+    box-shadow: none;
+    transform: none;
+}
+
 .btn-reservar:hover {
     background-color: var(--primary-blue);
     transform: scale(1.05);
