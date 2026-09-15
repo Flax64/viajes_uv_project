@@ -8,6 +8,7 @@
         "imagen": "files/img/viaje1.webp",
         "video": "files/video/viaje1.mp4",
         "mensajeWhats": "Hola Viajes UV, quiero reservar el viaje a Cancún",
+        "badge" : "¡Próximo!",
         "incluye": [
             "✈️ Vuelo redondo desde Monterrey/Saltillo.",
             "🏨 Hospedaje por 4 días y 3 noches en Hotel Osasis.",
@@ -75,6 +76,7 @@
         "imagen": "files/img/viaje4.webp",
         "video": "files/video/viaje4.mp4",
         "mensajeWhats": "Hola Viajes UV, quiero reservar el viaje a Los Cabos",
+        "badge": "¡Oferta Especial!",
         "incluye": [
             "✈️ Vuelo redondo desde Monterrey/Saltillo.",
             "🏨 Hospedaje por 5 días y 4 noches en Hotel Cabo San Lucas.",
