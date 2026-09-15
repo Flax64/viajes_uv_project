@@ -341,6 +341,37 @@ body {
     /* Como ahora es una etiqueta <a> */
 }
 
+/* --- ESTILOS PARA EL CONTENIDO DE CARGA --- */
+.loading-container {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 0;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid var(--light-blue-bg);
+    border-top: 5px solid var(--accent-cyan);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 15px;
+}
+
+.loading-container p {
+    color: var(--primary-blue);
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
 /* --- RESPONSIVIDAD --- */
 @media (max-width: 768px) {
     .header {
