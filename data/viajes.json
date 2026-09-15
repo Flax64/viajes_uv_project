@@ -7,7 +7,7 @@
         "precio": 8500,
         "imagen": "files/img/viaje1.webp",
         "video": "files/video/viaje1.mp4",
-        "mensajeWhats": "Hola Viajes UV, quiero reservar el viaje a Cancún",
+        "mensajeWhats": "Buen día, me gustaría reservar el paquete 1 a Cancún",
         "badge" : "¡Próximo!",
         "incluye": [
             "✈️ Vuelo redondo desde Monterrey/Saltillo.",
@@ -30,7 +30,8 @@
         "precio": 9500,
         "imagen": "files/img/viaje2.webp",
         "video": "files/video/viaje2.mp4",
-        "mensajeWhats": "Hola Viajes UV, quiero reservar el viaje a Riviera Maya",
+        "mensajeWhats": "Buen día, me gustaría reservar el paquete 2 a la Riviera Maya",
+        "badge": "No disponible",
         "incluye": [
             "✈️ Vuelo redondo desde Monterrey/Saltillo.",
             "🏨 Hospedaje por 5 días y 4 noches en Hotel Playa del Carmen.",
@@ -53,7 +54,7 @@
         "precio": 7800,
         "imagen": "files/img/viaje3.webp",
         "video": "files/video/viaje3.mp4",
-        "mensajeWhats": "Hola Viajes UV, quiero reservar el viaje a Puerto Vallarta",
+        "mensajeWhats": "Buen día, me gustaría reservar el paquete 3 a Puerto Vallarta",
         "incluye": [
             "✈️ Vuelo redondo desde Monterrey/Saltillo.",
             "🏨 Hospedaje por 4 días y 3 noches en Hotel Playa del Sol.",
@@ -75,8 +76,8 @@
         "precio": 9200,
         "imagen": "files/img/viaje4.webp",
         "video": "files/video/viaje4.mp4",
-        "mensajeWhats": "Hola Viajes UV, quiero reservar el viaje a Los Cabos",
-        "badge": "¡Oferta Especial!",
+        "mensajeWhats": "Buen día, me gustaría reservar el paquete 4 a Los Cabos",
+        "badge": "¡Agotado!",
         "incluye": [
             "✈️ Vuelo redondo desde Monterrey/Saltillo.",
             "🏨 Hospedaje por 5 días y 4 noches en Hotel Cabo San Lucas.",

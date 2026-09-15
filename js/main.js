@@ -64,6 +64,14 @@ function renderizarTarjetas() {
     datosCentralizados.forEach(viaje => {
         const badgeHTML = viaje.badge ? `<span class="badge">${viaje.badge}</span>` : '';
         
+        // Condicional para deshabilitar el botón si el viaje está agotado
+        const isAgotado = (viaje.badge && viaje.badge.toLowerCase().includes('agotado')) || (viaje.badge && viaje.badge.toLowerCase().includes('completo')) 
+        || (viaje.badge && viaje.badge.toLowerCase().includes('no disponible'));
+        // Atributos del botón
+        const atributoDisabled = isAgotado ? 'disabled' : '';
+        const claseAgotado = isAgotado ? 'btn-agotado' : '';
+        const textoBoton = isAgotado ? 'Agotado' : 'Ver Detalles';
+
         // 2. Sumamos el texto a la variable, NO al DOM
         htmlAcumulado += `
             <article class="trip-card">
@@ -76,7 +84,7 @@ function renderizarTarjetas() {
                     <p class="description">${viaje.descripcion}</p>
                     <div class="card-footer">
                         <span class="price">Desde $${viaje.precio.toLocaleString()} MXN</span>
-                        <button class="btn-reservar" data-viaje="${viaje.id}">Ver Detalles</button>
+                        <button class="btn-reservar ${claseAgotado}" data-viaje="${viaje.id}" ${atributoDisabled}>${textoBoton}</button>
                     </div>
                 </div>
             </article>
