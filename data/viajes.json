@@ -5,8 +5,9 @@
         "fecha": "📅 12 al 16 de Mayo 2027",
         "descripcion": "Vive grandes momentos en Grand Oasis Cancún. Vuelo redondo, traslados privados y plan Todo Incluido.",
         "precio": 12000,
-        "imagen": "files/img/cancun_2027.webp",
-        "badge": "¡Nuevo! 🌴",
+        "imagen_tarjeta": "files/img/viaje1.webp",
+        "imagen_modal": "files/img/cancun_2027.webp",
+        "badge": "Próximo! 🌴",
         "mensajeWhats": "Hola Viajes UV, quiero reservar mi lugar para el viaje a Cancún en mayo de 2027.",
         "incluye": [
             "✈️ Vuelo redondo Monterrey - Cancún - Monterrey.",
@@ -48,6 +49,7 @@
             "🏦 Transferencia bancaria",
             "💵 Depósito en ventanilla o practicaja",
             "💳 Tarjeta de crédito a meses sin intereses"
-        ]
+        ],
+        "mensaje_final": "¡No pierdas la oportunidad de vivir esta experiencia única en Cancún! Reserva tu lugar ahora y asegura tu viaje con nosotros."
     }
 ]

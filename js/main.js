@@ -71,11 +71,12 @@ function renderizarTarjetas() {
         const atributoDisabled = isAgotado ? 'disabled' : '';
         const claseAgotado = isAgotado ? 'btn-agotado' : '';
         const textoBoton = isAgotado ? 'Agotado' : 'Ver Detalles';
+        const imgTarjeta = viaje.imagen_tarjeta || viaje.imagen;
 
         // 2. Sumamos el texto a la variable, NO al DOM
         htmlAcumulado += `
             <article class="trip-card">
-                <div class="trip-image" style="background-image: url('${viaje.imagen}');">
+                <div class="trip-image" style="background-image: url('${imgTarjeta}');">
                     ${badgeHTML}
                 </div>
                 <div class="trip-content">
@@ -114,6 +115,7 @@ const contenedorLugares = document.getElementById('modal-lugares');
 const contenedorPagos = document.getElementById('modal-pagos');
 const contenedorIncluye = document.getElementById('modal-lista-incluye');
 const contenedorItinerario = document.getElementById('modal-itinerario');
+const contenedorMensajeFinal = document.getElementById('modal-mensaje-final');
 
 function asignarEventosModal() {
     // Seleccionamos botones que NO estén agotados para no gastar recursos
@@ -129,14 +131,19 @@ function asignarEventosModal() {
             modalPrecio.textContent = `Desde $${viaje.precio.toLocaleString()} MXN`;
             modalEnlaceWhats.href = `https://wa.me/528445512379?text=${encodeURIComponent(viaje.mensajeWhats)}`;
 
-            // --- 2. MULTIMEDIA (Video vs Imagen) ---
+            // --- 2. MULTIMEDIA (Video vs Imagen Modal) ---
             if (viaje.video && viaje.video !== "") {
+                // 1. Si hay video, muestra el video
                 contenedorMedia.innerHTML = `
                     <video class="modal-video" controls autoplay muted loop>
                         <source src="${viaje.video}" type="video/mp4">
                     </video>`;
             } else {
-                contenedorMedia.innerHTML = `<img src="${viaje.imagen}" alt="${viaje.nombre}" class="modal-video">`;
+                // 2. Si no hay video, buscamos la imagen específica del modal
+                // Si por alguna razón no pusiste "imagen_modal", usará la "imagen_tarjeta" de respaldo
+                const imgModal = viaje.imagen_modal || viaje.imagen_tarjeta || viaje.imagen;
+                
+                contenedorMedia.innerHTML = `<img src="${imgModal}" alt="${viaje.nombre}" class="modal-video">`;
             }
 
             // --- 3. QUÉ INCLUYE ---
@@ -204,6 +211,13 @@ function asignarEventosModal() {
                 contenedorPagos.innerHTML = htmlMetodos;
             } else {
                 contenedorPagos.innerHTML = '';
+            }
+
+            // --- 7. MENSAJE FINAL (opcional) ---
+            if(viaje.mensaje_final) {
+                contenedorMensajeFinal.innerHTML = `<p>${viaje.mensaje_final}</p>`;
+            } else {
+                contenedorMensajeFinal.innerHTML = '';
             }
 
             // Mostrar el modal y bloquear scroll
