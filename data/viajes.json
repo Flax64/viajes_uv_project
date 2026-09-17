@@ -1,95 +1,53 @@
 [
     {
-        "id": "viaje1",
-        "nombre": "Cancún",
-        "fecha": "📅 Diciembre",
-        "descripcion": "Disfruta de las playas de arena blanca y aguas cristalinas de Cancún. Perfecto para relajarte y disfrutar del sol.",
-        "precio": 8500,
-        "imagen": "files/img/viaje1.webp",
-        "video": "files/video/viaje1.mp4",
-        "mensajeWhats": "Buen día, me gustaría reservar el paquete 1 a Cancún",
-        "badge" : "¡Próximo!",
+        "id": "cancun_mayo_2027",
+        "nombre": "Cancún - Grand Oasis 2027",
+        "fecha": "📅 12 al 16 de Mayo 2027",
+        "descripcion": "Vive grandes momentos en Grand Oasis Cancún. Vuelo redondo, traslados privados y plan Todo Incluido.",
+        "precio": 12000,
+        "imagen": "files/img/cancun_2027.webp",
+        "badge": "¡Nuevo! 🌴",
+        "mensajeWhats": "Hola Viajes UV, quiero reservar mi lugar para el viaje a Cancún en mayo de 2027.",
         "incluye": [
-            "✈️ Vuelo redondo desde Monterrey/Saltillo.",
-            "🏨 Hospedaje por 4 días y 3 noches en Hotel Osasis.",
-            "🍹 Plan Todo Incluido (Desayuno, comida, cena y bebidas).",
-            "🚌 Traslados Aeropuerto - Hotel - Aeropuerto."
+            "✈️ Vuelo redondo Monterrey - Cancún - Monterrey.",
+            "🚐 Traslado privado Aeropuerto - Hotel redondo.",
+            "🏨 Hospedaje en Grand Oasis Cancún.",
+            "🍹 Plan Todo Incluido (9 restaurantes, 9 bares).",
+            "☕ 2 cafeterías y 2 gelatos.",
+            "🏊 Alberca de 400 metros y acceso a la playa."
         ],
-        "itinerario": [
-            "Día 1: Llegada a Cancún y traslado al hotel.",
-            "Día 2: Día libre para disfrutar de la playa o actividades opcionales.",
-            "Día 3: Excursión a Isla Mujeres o Chichén Itzá (opcional).",
-            "Día 4: Check-out y regreso a casa."
-        ]
-    },
-    {
-        "id": "viaje2",
-        "nombre": "Riviera Maya",
-        "fecha": "📅 Enero",
-        "descripcion": "Explora la belleza natural y la cultura de la Riviera Maya. Ideal para los amantes de la historia y la naturaleza.",
-        "precio": 9500,
-        "imagen": "files/img/viaje2.webp",
-        "video": "files/video/viaje2.mp4",
-        "mensajeWhats": "Buen día, me gustaría reservar el paquete 2 a la Riviera Maya",
-        "badge": "No disponible",
-        "incluye": [
-            "✈️ Vuelo redondo desde Monterrey/Saltillo.",
-            "🏨 Hospedaje por 5 días y 4 noches en Hotel Playa del Carmen.",
-            "🍹 Plan Todo Incluido (Desayuno, comida, cena y bebidas).",
-            "🚌 Traslados Aeropuerto - Hotel - Aeropuerto."
-        ],
-        "itinerario": [
-            "Día 1: Llegada a Riviera Maya y traslado al hotel.",
-            "Día 2: Visita a Tulum y sus playas.",
-            "Día 3: Excursión a Cozumel o snorkel en cenotes.",
-            "Día 4: Día libre para disfrutar del resort o actividades opcionales.",
-            "Día 5: Check-out y regreso a casa."
-        ]
-    },
-    {
-        "id": "viaje3",
-        "nombre": "Puerto Vallarta",
-        "fecha": "📅 Febrero",
-        "descripcion": "Vive la experiencia de Puerto Vallarta con sus playas, vida nocturna y deliciosa gastronomía. Perfecto para una escapada romántica.",
-        "precio": 7800,
-        "imagen": "files/img/viaje3.webp",
-        "video": "files/video/viaje3.mp4",
-        "mensajeWhats": "Buen día, me gustaría reservar el paquete 3 a Puerto Vallarta",
-        "incluye": [
-            "✈️ Vuelo redondo desde Monterrey/Saltillo.",
-            "🏨 Hospedaje por 4 días y 3 noches en Hotel Playa del Sol.",
-            "🍹 Plan Todo Incluido (Desayuno, comida, cena y bebidas).",
-            "🚌 Traslados Aeropuerto - Hotel - Aeropuerto."
-        ],
-        "itinerario": [
-            "Día 1: Llegada a Puerto Vallarta y traslado al hotel.",
-            "Día 2: Tour por la ciudad y sus playas.",
-            "Día 3: Excursión a las Islas Marietas o paseo en barco.",
-            "Día 4: Check-out y regreso a casa."
-        ]
-    },
-    {
-        "id": "viaje4",
-        "nombre": "Los Cabos",
-        "fecha": "📅 Marzo",
-        "descripcion": "Disfruta de la belleza de Los Cabos con sus paisajes desérticos y playas impresionantes. Ideal para los amantes de la aventura y el lujo.",
-        "precio": 9200,
-        "imagen": "files/img/viaje4.webp",
-        "video": "files/video/viaje4.mp4",
-        "mensajeWhats": "Buen día, me gustaría reservar el paquete 4 a Los Cabos",
-        "badge": "¡Agotado!",
-        "incluye": [
-            "✈️ Vuelo redondo desde Monterrey/Saltillo.",
-            "🏨 Hospedaje por 5 días y 4 noches en Hotel Cabo San Lucas.",
-            "🍹 Plan Todo Incluido (Desayuno, comida, cena y bebidas).",
-            "🚌 Traslados Aeropuerto - Hotel - Aeropuerto."
-        ],
-        "itinerario": [
-            "Día 1: Llegada a Los Cabos y traslado al hotel.",
-            "Día 2: Tour por Cabo San Lucas y sus playas.",
-            "Día 3: Excursión a La Paz o avistamiento de ballenas (opcional).",
-            "Día 4: Día libre para disfrutar del resort o actividades opcionales.",
-            "Día 5: Check-out y regreso a casa."
+        "pagos": {
+            "adultos": {
+                "total": "$12,000",
+                "anticipo": "$1,000",
+                "fechas": [
+                    "💳 15 Oct 2026: $1,200",
+                    "💳 15 Nov 2026: $1,200",
+                    "💳 15 Dic 2026: $1,200",
+                    "💳 15 Ene 2027: $1,200",
+                    "💳 15 Feb 2027: $1,200",
+                    "💳 15 Mar 2027: $1,200",
+                    "✅ 15 Abr 2027: $3,800 (Liquidación)"
+                ]
+            },
+            "menores": {
+                "total": "$6,000",
+                "anticipo": "$500",
+                "fechas": [
+                    "💳 15 octubre 2026 — $600",
+                    "💳 15 noviembre 2026 — $600",
+                    "💳 15 diciembre 2026 — $600",
+                    "💳 15 enero 2027 — $600",
+                    "💳 15 febrero 2027 — $600",
+                    "💳 15 marzo 2027 — $600",
+                    "✅ 15 Abr 2027: $1,900 (Liquidación)"
+                ]
+            }
+        },
+        "metodos_pago": [
+            "🏦 Transferencia bancaria",
+            "💵 Depósito en ventanilla o practicaja",
+            "💳 Tarjeta de crédito a meses sin intereses"
         ]
     }
 ]
