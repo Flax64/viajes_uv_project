@@ -22,12 +22,12 @@ window.addEventListener('scroll', () => {
 const enlacesMenu = document.querySelectorAll('.nav a[href^="#"]');
 enlacesMenu.forEach(enlace => {
     enlace.addEventListener('click', function (e) {
-        e.preventDefault(); 
+        e.preventDefault();
         const destino = document.querySelector(this.getAttribute('href'));
         if (destino) {
             const posicionElemento = destino.getBoundingClientRect().top + window.scrollY;
             const alturaMenu = document.querySelector('.header').offsetHeight;
-            const compensacionMenu = alturaMenu + 15; 
+            const compensacionMenu = alturaMenu + 15;
             window.scrollTo({
                 top: posicionElemento - compensacionMenu,
                 behavior: 'smooth'
@@ -59,14 +59,14 @@ async function cargarViajes() {
 // B. Función para dibujar las tarjetas en el HTML
 function renderizarTarjetas() {
     // 1. Creamos una variable vacía para almacenar todo el texto HTML
-    let htmlAcumulado = ''; 
+    let htmlAcumulado = '';
 
     datosCentralizados.forEach(viaje => {
         const badgeHTML = viaje.badge ? `<span class="badge">${viaje.badge}</span>` : '';
-        
+
         // Condicional para deshabilitar el botón si el viaje está agotado
-        const isAgotado = (viaje.badge && viaje.badge.toLowerCase().includes('agotado')) || (viaje.badge && viaje.badge.toLowerCase().includes('completo')) 
-        || (viaje.badge && viaje.badge.toLowerCase().includes('no disponible'));
+        const isAgotado = (viaje.badge && viaje.badge.toLowerCase().includes('agotado')) || (viaje.badge && viaje.badge.toLowerCase().includes('completo'))
+            || (viaje.badge && viaje.badge.toLowerCase().includes('no disponible'));
         // Atributos del botón
         const atributoDisabled = isAgotado ? 'disabled' : '';
         const claseAgotado = isAgotado ? 'btn-agotado' : '';
@@ -105,53 +105,110 @@ const modalDetalles = document.getElementById('modal-detalles');
 const btnCerrarModal = document.querySelector('.close-modal');
 const modalBody = document.querySelector('.modal-body');
 
-// Elementos dinámicos del modal
+// Elementos dinámicos del modal a modificar
 const modalTitulo = document.querySelector('.modal-title');
-const modalVideo = document.querySelector('.modal-video');
-const modalLista = document.getElementById('modal-lista');
-const modalItinerario = document.getElementById('modal-itinerario');
+const contenedorMedia = document.getElementById('modal-media');
 const modalPrecio = document.querySelector('.modal-price');
 const modalEnlaceWhats = document.querySelector('.modal-btn');
+const contenedorLugares = document.getElementById('modal-lugares');
+const contenedorPagos = document.getElementById('modal-pagos');
+const contenedorIncluye = document.getElementById('modal-lista-incluye');
+const contenedorItinerario = document.getElementById('modal-itinerario');
 
 function asignarEventosModal() {
-    const botonesVerDetalles = document.querySelectorAll('.btn-reservar');
+    // Seleccionamos botones que NO estén agotados para no gastar recursos
+    const botonesVerDetalles = document.querySelectorAll('.btn-reservar:not(.btn-agotado)');
 
     botonesVerDetalles.forEach(boton => {
         boton.addEventListener('click', (e) => {
             const idViaje = e.target.getAttribute('data-viaje');
-            
-            // BUSCAMOS EL VIAJE EN EL JSON CARGADO
-            const datos = datosCentralizados.find(viaje => viaje.id === idViaje);
+            const viaje = datosCentralizados.find(v => v.id === idViaje);
 
-            if (datos) {
-                modalTitulo.textContent = `Detalles del Viaje: ${datos.nombre}`;
-                modalVideo.src = datos.video;
-                modalPrecio.textContent = `Total: $${datos.precio.toLocaleString()} MXN`;
-                
-                modalEnlaceWhats.href = `https://wa.me/528445512379?text=${encodeURIComponent(datos.mensajeWhats)}`;
+            // --- 1. DATOS BÁSICOS (Título, Precio y WhatsApp) ---
+            modalTitulo.textContent = viaje.nombre;
+            modalPrecio.textContent = `Desde $${viaje.precio.toLocaleString()} MXN`;
+            modalEnlaceWhats.href = `https://wa.me/528445512379?text=${encodeURIComponent(viaje.mensajeWhats)}`;
 
-                // Limpiamos y llenamos la lista de "Qué incluye"
-                modalLista.innerHTML = "";
-                datos.incluye.forEach(item => {
-                    modalLista.innerHTML += `<li>${item}</li>`;
-                });
-
-                // Limpiamos y llenamos el itinerario (Tu JSON lo tiene como arreglo de strings)
-                modalItinerario.innerHTML = "";
-                datos.itinerario.forEach(dia => {
-                    // Formatea "Día X:" en negritas usando split
-                    const partes = dia.split(": ");
-                    if(partes.length > 1) {
-                         modalItinerario.innerHTML += `<p><strong>${partes[0]}:</strong> ${partes[1]}</p>`;
-                    } else {
-                         modalItinerario.innerHTML += `<p>${dia}</p>`;
-                    }
-                });
+            // --- 2. MULTIMEDIA (Video vs Imagen) ---
+            if (viaje.video && viaje.video !== "") {
+                contenedorMedia.innerHTML = `
+                    <video class="modal-video" controls autoplay muted loop>
+                        <source src="${viaje.video}" type="video/mp4">
+                    </video>`;
+            } else {
+                contenedorMedia.innerHTML = `<img src="${viaje.imagen}" alt="${viaje.nombre}" class="modal-video">`;
             }
 
-            // Mostrar el modal
+            // --- 3. QUÉ INCLUYE ---
+            if (viaje.incluye) {
+                let lista = "<h4>¿Qué incluye el paquete?</h4><ul class='modal-list'>";
+                viaje.incluye.forEach(item => lista += `<li>${item}</li>`);
+                lista += "</ul>";
+                contenedorIncluye.innerHTML = lista;
+            } else {
+                contenedorIncluye.innerHTML = "";
+            }
+
+            // --- 4. ITINERARIO Y/O PLAN DE PAGOS ---
+            // Primero vaciamos el contenedor por si tenía datos de otro viaje
+            contenedorItinerario.innerHTML = ""; 
+
+            // Si el viaje tiene un itinerario normal (día 1, día 2, etc.)
+            if (viaje.itinerario) {
+                contenedorItinerario.innerHTML += `<h4>Itinerario</h4>${viaje.itinerario}`;
+            }
+
+            // Si el viaje tiene el nuevo formato de pagos estructurado
+            if (viaje.pagos) {
+                let htmlPagos = `<h4>Plan de Pagos</h4>`;
+
+                if (viaje.pagos.adultos) {
+                    htmlPagos += `<p style="color: var(--primary-blue); font-weight: 600; margin-top: 15px;">👤 ADULTOS (${viaje.pagos.adultos.total})</p>`;
+                    htmlPagos += `<p>Separa tu lugar con <strong>${viaje.pagos.adultos.anticipo}</strong></p>`;
+                    htmlPagos += `<ul class="modal-list">`;
+                    viaje.pagos.adultos.fechas.forEach(fecha => {
+                        htmlPagos += `<li>${fecha}</li>`;
+                    });
+                    htmlPagos += `</ul>`;
+                }
+
+                if (viaje.pagos.menores) {
+                    htmlPagos += `<p style="color: var(--primary-blue); font-weight: 600; margin-top: 15px;">👧🧒 MENORES 2-12 AÑOS (${viaje.pagos.menores.total})</p>`;
+                    htmlPagos += `<p>Separa su lugar con <strong>${viaje.pagos.menores.anticipo}</strong></p>`;
+                    htmlPagos += `<ul class="modal-list">`;
+                    viaje.pagos.menores.fechas.forEach(fecha => {
+                        htmlPagos += `<li>${fecha}</li>`;
+                    });
+                    htmlPagos += `</ul>`;
+                }
+
+                // Usamos += para sumarlo al itinerario (si es que existe)
+                contenedorItinerario.innerHTML += htmlPagos;
+            }
+
+            // --- 5. LUGARES DISPONIBLES ---
+            if (viaje.lugares) {
+                contenedorLugares.innerHTML = `<h4>Lugares Disponibles</h4><p>${viaje.lugares}</p>`;
+            } else {
+                contenedorLugares.innerHTML = '';
+            }
+
+            // --- 6. MÉTODOS DE PAGO ---
+            if (viaje.metodos_pago) {
+                let htmlMetodos = `<h4>Formas de Pago</h4><ul class="modal-list">`;
+                viaje.metodos_pago.forEach(metodo => {
+                    htmlMetodos += `<li>${metodo}</li>`;
+                });
+                htmlMetodos += `</ul>`;
+
+                contenedorPagos.innerHTML = htmlMetodos;
+            } else {
+                contenedorPagos.innerHTML = '';
+            }
+
+            // Mostrar el modal y bloquear scroll
             modalDetalles.classList.add('active');
-            document.body.style.overflow = 'hidden'; 
+            document.body.style.overflow = 'hidden';
         });
     });
 }
@@ -168,7 +225,13 @@ modalDetalles.addEventListener('click', (e) => {
 function cerrarModal() {
     modalDetalles.classList.remove('active');
     document.body.style.overflow = 'auto';
-    modalVideo.pause();
+
+    // Forma segura de detener el video SIN marcar error si es una imagen
+    const videoActivo = document.querySelector('#modal-media video');
+    if (videoActivo) {
+        videoActivo.pause();
+    }
+
     setTimeout(() => {
         modalBody.scrollTop = 0;
     }, 300);
