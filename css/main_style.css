@@ -38,7 +38,7 @@ body {
 
 .header.scrolled {
     padding: 10px 50px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .logo-container {
@@ -133,11 +133,19 @@ body {
 }
 
 .trip-image {
-    height: 280px;
+    height: 350px;
     background-size: cover;
-    background-position: center;
+    background-position: top center;
     background-repeat: no-repeat;
     position: relative;
+}
+
+.final-message {
+    color: var(--primary-blue); 
+    font-size: 1.1rem;
+    font-weight: 600; 
+    text-align: center;
+    margin: 20px 0;
 }
 
 .badge {
@@ -271,14 +279,14 @@ body {
 }
 
 .close-modal {
-    background-color: #f0f4f8; 
+    background-color: #f0f4f8;
     border: none;
     font-size: 1.5rem;
     color: var(--text-gray);
     cursor: pointer;
     width: 35px;
     height: 35px;
-    border-radius: 50%; 
+    border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -286,8 +294,8 @@ body {
 }
 
 .close-modal:hover {
-    background-color: #ff6b6b; 
-    color: var(--white);      
+    background-color: #ff6b6b;
+    color: var(--white);
     transform: rotate(90deg);
 }
 
@@ -300,11 +308,10 @@ body {
 /* --- ESTITILOS INTERNOS DEL BODY --- */
 .modal-video {
     width: 100%;
-    height: 300px; 
-    object-fit: cover; 
+    height: auto;
+    max-height: none;
     border-radius: 10px;
     margin-bottom: 20px;
-    background-color: #000000;
 }
 
 .modal-body h4 {
@@ -377,8 +384,13 @@ body {
 }
 
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 /* --- RESPONSIVIDAD --- */
@@ -388,9 +400,9 @@ body {
         gap: 15px;
         padding: 15px 20px;
     }
-    
+
     .header.scrolled {
-        padding: 10px 20px; 
+        padding: 10px 20px;
     }
 
     .nav {
@@ -399,7 +411,7 @@ body {
         justify-content: center;
         gap: 15px;
     }
-    
+
     .nav a {
         margin-left: 0;
     }
@@ -416,16 +428,17 @@ body {
         margin-top: 180px;
     }
 
-        .modal-box {
+    .modal-box {
         max-width: 95%;
     }
 
     .modal-video {
+        width: 100%;
         height: auto;
-        aspect-ratio: 16/9; 
+        aspect-ratio: auto;
     }
 
-    .modal-footer{
+    .modal-footer {
         flex-direction: column;
         gap: 15px;
     }
@@ -438,7 +451,7 @@ body {
 }
 
 @media (max-width: 950px) and (orientation: landscape) {
-    .header{
+    .header {
         position: relative;
     }
 
@@ -447,31 +460,33 @@ body {
     }
 
     .modal-box {
-        max-height: 95vh; 
+        max-height: 95vh;
     }
 
-    .modal-header, .modal-body, .modal-footer {
-        padding: 10px 20px; 
+    .modal-header,
+    .modal-body,
+    .modal-footer {
+        padding: 10px 20px;
     }
 
     .modal-video {
-        height: 150px; 
-        aspect-ratio: auto; 
+        height: 150px;
+        aspect-ratio: auto;
         margin-bottom: 10px;
     }
 
     .modal-footer {
-        flex-direction: row; 
+        flex-direction: row;
         justify-content: space-between;
         align-items: center;
     }
 
     .modal-btn {
-        width: auto; 
-        padding: 10px 20px; 
+        width: auto;
+        padding: 10px 20px;
     }
 
     .modal-price {
-        font-size: 1.1rem; 
+        font-size: 1.1rem;
     }
 }
