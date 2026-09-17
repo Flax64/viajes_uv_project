@@ -22,26 +22,26 @@
                 "total": "$12,000",
                 "anticipo": "$1,000",
                 "fechas": [
-                    "💳 15 Oct 2026: $1,200",
-                    "💳 15 Nov 2026: $1,200",
-                    "💳 15 Dic 2026: $1,200",
-                    "💳 15 Ene 2027: $1,200",
-                    "💳 15 Feb 2027: $1,200",
-                    "💳 15 Mar 2027: $1,200",
-                    "✅ 15 Abr 2027: $3,800 (Liquidación)"
+                    "💳 15 de Octubre 2026: $1,200",
+                    "💳 15 de Noviembre 2026: $1,200",
+                    "💳 15 de Diciembre 2026: $1,200",
+                    "💳 15 de Enero 2027: $1,200",
+                    "💳 15 de Febrero 2027: $1,200",
+                    "💳 15 de Marzo 2027: $1,200",
+                    "✅ 15 de Abril 2027: $3,800 (Liquidación)"
                 ]
             },
             "menores": {
                 "total": "$6,000",
                 "anticipo": "$500",
                 "fechas": [
-                    "💳 15 octubre 2026 — $600",
-                    "💳 15 noviembre 2026 — $600",
-                    "💳 15 diciembre 2026 — $600",
-                    "💳 15 enero 2027 — $600",
-                    "💳 15 febrero 2027 — $600",
-                    "💳 15 marzo 2027 — $600",
-                    "✅ 15 Abr 2027: $1,900 (Liquidación)"
+                    "💳 15 de Octubre 2026 — $600",
+                    "💳 15 de Noviembre 2026 — $600",
+                    "💳 15 de Diciembre 2026 — $600",
+                    "💳 15 de Enero 2027 — $600",
+                    "💳 15 de Febrero 2027 — $600",
+                    "💳 15 de Marzo 2027 — $600",
+                    "✅ 15 de Abril 2027: $1,900 (Liquidación)"
                 ]
             }
         },
