@@ -127,6 +127,14 @@ body {
     flex-direction: column;
 }
 
+/* --- EFECTO PARA TARJETA IMPAR SOLITARIA --- */
+.trip-card:last-child:nth-child(odd) {
+    grid-column: 1 / -1;     
+    justify-self: center;    
+    width: 100%;             
+    max-width: 750px;        
+}
+
 .trip-card:hover {
     transform: translateY(-8px);
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
