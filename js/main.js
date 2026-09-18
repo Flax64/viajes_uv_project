@@ -163,14 +163,20 @@ function automatizarEtiquetas(viaje, index) {
 
     const fechaFin = viaje.fecha_fin ? viaje.fecha_fin : viaje.fecha_inicio;
 
-    // 1. Verificar si esta en progreso
+    // 1. Verificamos si está en progreso (solo para la bandera interna)
     if (viaje.fecha_inicio <= todayDate && fechaFin >= todayDate) {
-        viaje.badge = "¡En curso! ✈️";
-        viaje.en_progreso = true; // Creamos esta bandera secreta para bloquear WhatsApp
+        viaje.en_progreso = true; 
     }
-    // 2. Verificar si es el proximo viaje 
-    else if (index == 0 && !viaje.badge) {
-        viaje.badge = "¡Próximo! 🌴";
+    // PRIORIDAD 1: Si tú escribiste un badge manual en el JSON ("Próximamente", "Agotado", etc.)
+    // El sistema se detiene aquí y respeta tu texto.
+    if (viaje.badge && viaje.badge.trim() !== "") {
+        return; 
+    }
+    // PRIORIDAD 2: Si no escribiste nada en el JSON, automatizamos.
+    if (viaje.en_progreso) {
+        viaje.badge = "¡En curso! ✈️"; // Si el viaje es hoy
+    } else if (index === 0) {
+        viaje.badge = "¡Próximo! 🌴"; // Si es el primero de la lista
     }
 }
 
