@@ -60,7 +60,10 @@ async function cargarViajes() {
 function renderizarTarjetas() {
     // 1. Creamos una variable vacía para almacenar todo el texto HTML
     let htmlAcumulado = '';
-
+    // Quitar viajes pasado
+    datosCentralizados = filtrarViajesPasados(datosCentralizados);
+    // Ordenar viajes por fecha
+    ordenarViajesPorFecha(datosCentralizados);
     datosCentralizados.forEach(viaje => {
         const badgeHTML = viaje.badge ? `<span class="badge">${viaje.badge}</span>` : '';
 
@@ -96,6 +99,45 @@ function renderizarTarjetas() {
     contenedorTarjetas.innerHTML = htmlAcumulado;
 
     asignarEventosModal();
+}
+
+// C. Función para ordenar los viajes por fecha (de más cercano a más lejano)
+function ordenarViajesPorFecha(viajes) {
+    viajes.sort((viajeA, viajeB) => {
+        const fechaA = new Date(viajeA.fecha_id);
+        const fechaB = new Date(viajeB.fecha_id);
+
+        // Validar fecha valida y que sea compatible con el tipo de dato Date. Si no es válida, la consideramos como "infinita" para que se vaya al final.
+        const isValidaA = !isNaN(fechaA.getTime());
+        const isValidaB = !isNaN(fechaB.getTime());
+
+        if (isValidaA && isValidaB) {
+            return fechaA - fechaB;
+        } else if (isValidaA && !isValidaB) {
+            return -1; // viajeA es válido, viajeB no lo es
+        } else if (!isValidaA && isValidaB) {
+            return 1; // viajeB es válido, viajeA no lo es
+        } else {
+            return 0; // Ambos son inválidos, mantener el orden original
+        }
+    });
+}
+
+// Función para validar la cronología de las fechas
+function filtrarViajesPasados(viajes) {
+    // 1. Obtenemos la fecha exacta del dia de hoy
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    const todayDate = `${year}-${month}-${day}`;
+
+    // 2. Retornar los viajes que pasen la prueba
+    return viajes.filter(viaje => {
+        if (!viaje.fecha_id) return true;
+
+        return viaje.fecha_id >= todayDate;
+    });
 }
 
 // ==========================================
@@ -142,8 +184,8 @@ function asignarEventosModal() {
                 // 2. Si no hay video, buscamos la imagen específica del modal
                 // Si por alguna razón no pusiste "imagen_modal", usará la "imagen_tarjeta" de respaldo
                 const imgModal = viaje.imagen_modal || viaje.imagen_tarjeta || viaje.imagen;
-                
-                contenedorMedia.innerHTML = `<img src="${imgModal}" alt="${viaje.nombre}" class="modal-video">`;
+
+                contenedorMedia.innerHTML = `<img src="${imgModal}" alt="${viaje.nombre} ${viaje.fecha}" class="modal-video">`;
             }
 
             // --- 3. QUÉ INCLUYE ---
@@ -158,7 +200,7 @@ function asignarEventosModal() {
 
             // --- 4. ITINERARIO Y/O PLAN DE PAGOS ---
             // Primero vaciamos el contenedor por si tenía datos de otro viaje
-            contenedorItinerario.innerHTML = ""; 
+            contenedorItinerario.innerHTML = "";
 
             // Si el viaje tiene un itinerario normal (día 1, día 2, etc.)
             if (viaje.itinerario) {
@@ -214,7 +256,7 @@ function asignarEventosModal() {
             }
 
             // --- 7. MENSAJE FINAL (opcional) ---
-            if(viaje.mensaje_final) {
+            if (viaje.mensaje_final) {
                 contenedorMensajeFinal.innerHTML = `<p>${viaje.mensaje_final}</p>`;
             } else {
                 contenedorMensajeFinal.innerHTML = '';
