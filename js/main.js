@@ -64,16 +64,15 @@ function renderizarTarjetas() {
     datosCentralizados = filtrarViajesPasados(datosCentralizados);
     // Ordenar viajes por fecha
     ordenarViajesPorFecha(datosCentralizados);
-    datosCentralizados.forEach(viaje => {
+    datosCentralizados.forEach((viaje, index) => {
+        automatizarEtiquetas(viaje, index);
         const badgeHTML = viaje.badge ? `<span class="badge">${viaje.badge}</span>` : '';
-
         // Condicional para deshabilitar el botón si el viaje está agotado
-        const isAgotado = (viaje.badge && viaje.badge.toLowerCase().includes('agotado')) || (viaje.badge && viaje.badge.toLowerCase().includes('completo'))
-            || (viaje.badge && viaje.badge.toLowerCase().includes('no disponible'));
-        // Atributos del botón
-        const atributoDisabled = isAgotado ? 'disabled' : '';
-        const claseAgotado = isAgotado ? 'btn-agotado' : '';
-        const textoBoton = isAgotado ? 'Agotado' : 'Ver Detalles';
+        const estadoViaje = verificarDisponibilidad(viaje);
+        let textoBoton = 'Ver Detalles';
+        if (estadoViaje.agotado) textoBoton = 'Agotado';
+        if (viaje.en_progreso) textoBoton = 'Ver Detalles';
+
         const imgTarjeta = viaje.imagen_tarjeta || viaje.imagen;
 
         // 2. Sumamos el texto a la variable, NO al DOM
@@ -88,7 +87,8 @@ function renderizarTarjetas() {
                     <p class="description">${viaje.descripcion}</p>
                     <div class="card-footer">
                         <span class="price">Desde $${viaje.precio.toLocaleString()} MXN</span>
-                        <button class="btn-reservar ${claseAgotado}" data-viaje="${viaje.id}" ${atributoDisabled}>${textoBoton}</button>
+                        <!-- Usamos los datos del objeto estadoViaje -->
+                        <button class="btn-reservar ${estadoViaje.claseCSS}" data-viaje="${viaje.id}" ${estadoViaje.atributo}>${textoBoton}</button>
                     </div>
                 </div>
             </article>
@@ -104,12 +104,12 @@ function renderizarTarjetas() {
 // C. Función para ordenar los viajes por fecha (de más cercano a más lejano)
 function ordenarViajesPorFecha(viajes) {
     viajes.sort((viajeA, viajeB) => {
-        const fechaA = new Date(viajeA.fecha_id);
-        const fechaB = new Date(viajeB.fecha_id);
+        const fechaA = new Date(viajeA.fecha_inicio);
+        const fechaB = new Date(viajeB.fecha_inicio);
 
         // Validar fecha valida y que sea compatible con el tipo de dato Date. Si no es válida, la consideramos como "infinita" para que se vaya al final.
-        const isValidaA = !isNaN(fechaA.getTime());
-        const isValidaB = !isNaN(fechaB.getTime());
+        const isValidaA = isFechaValida(fechaA);
+        const isValidaB = isFechaValida(fechaB);
 
         if (isValidaA && isValidaB) {
             return fechaA - fechaB;
@@ -123,7 +123,12 @@ function ordenarViajesPorFecha(viajes) {
     });
 }
 
-// Función para validar la cronología de las fechas
+// D. Funcion para validar fechas validas
+function isFechaValida(fecha) {
+    return fecha instanceof Date && !isNaN(fecha.getTime());
+}
+
+// E. Función para validar la cronología de las fechas
 function filtrarViajesPasados(viajes) {
     // 1. Obtenemos la fecha exacta del dia de hoy
     const today = new Date();
@@ -134,10 +139,55 @@ function filtrarViajesPasados(viajes) {
 
     // 2. Retornar los viajes que pasen la prueba
     return viajes.filter(viaje => {
-        if (!viaje.fecha_id) return true;
-
-        return viaje.fecha_id >= todayDate;
+        // Si olvidamos poner la fecha este se omitira
+        if (!viaje.fecha_inicio) return true;
+        // Convertimos primero la fecha 'yyyy-mm-dd' que es un String a un formato de fecha valido
+        const fechaObjeto = new Date(viaje.fecha_inicio);
+        // Validamos que sea una fecha valida
+        if (isFechaValida(fechaObjeto)) {
+            const fechaReferencia = viaje.fecha_fin ? viaje.fecha_fin : viaje.fecha_inicio;
+            return fechaReferencia >= todayDate;
+        }
+        // Si no es una fecha valida lo dejamos pasar para que esta se dibuje   
+        return true;
     });
+}
+
+// F. Funcion para automatizar etiquetas (badge)
+function automatizarEtiquetas(viaje, index) {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    const todayDate = `${year}-${month}-${day}`;
+
+    const fechaFin = viaje.fecha_fin ? viaje.fecha_fin : viaje.fecha_inicio;
+
+    // 1. Verificar si esta en progreso
+    if (viaje.fecha_inicio <= todayDate && fechaFin >= todayDate) {
+        viaje.badge = "¡En curso! ✈️";
+        viaje.en_progreso = true; // Creamos esta bandera secreta para bloquear WhatsApp
+    }
+    // 2. Verificar si es el proximo viaje 
+    else if (index == 0 && !viaje.badge) {
+        viaje.badge = "¡Próximo! 🌴";
+    }
+}
+
+// G. Funcion para verificar si esta agotado
+function verificarDisponibilidad(viaje) {
+    // 1. Revisar el texto badge si existe
+    const textoBadge = viaje.badge ? viaje.badge.toLowerCase() : "";
+    // 2. Verificamos si tiene una palabra clave
+    const isAgotado = textoBadge.includes('agotado') ||
+                        textoBadge.includes('completo') ||
+                        textoBadge.includes('no disponible');
+    // 3. Retornamos un objeto con las 3 variables que necesita el HTML    
+    return {
+        agotado: isAgotado,
+        atributo: isAgotado ? 'disabled' : '',
+        claseCSS: isAgotado ? 'btn-agotado' : ''
+    };
 }
 
 // ==========================================
@@ -171,7 +221,19 @@ function asignarEventosModal() {
             // --- 1. DATOS BÁSICOS (Título, Precio y WhatsApp) ---
             modalTitulo.textContent = viaje.nombre;
             modalPrecio.textContent = `Desde $${viaje.precio.toLocaleString()} MXN`;
-            modalEnlaceWhats.href = `https://wa.me/528445512379?text=${encodeURIComponent(viaje.mensajeWhats)}`;
+            // Validar si bloqueamos el botón de WhatsApp
+            if (viaje.en_progreso || (viaje.badge && viaje.badge.toLowerCase().includes('agotado'))) {
+                modalEnlaceWhats.removeAttribute('href');
+                modalEnlaceWhats.textContent = "Reservas Cerradas";
+                modalEnlaceWhats.style.backgroundColor = "#cccccc"; // Lo pintamos gris
+                modalEnlaceWhats.style.cursor = "not-allowed";
+            } else {
+                // Si todo está normal, restauramos el botón
+                modalEnlaceWhats.href = `https://wa.me/528445512379?text=${encodeURIComponent(viaje.mensajeWhats)}`;
+                modalEnlaceWhats.textContent = "Reservar por WhatsApp";
+                modalEnlaceWhats.style.backgroundColor = ""; // Restaura el color de tu CSS
+                modalEnlaceWhats.style.cursor = "pointer";
+            }
 
             // --- 2. MULTIMEDIA (Video vs Imagen Modal) ---
             if (viaje.video && viaje.video !== "") {
