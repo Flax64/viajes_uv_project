@@ -18,7 +18,7 @@
 
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: var(--light-blue-bg);
+    background: url('../files/img/fondo_index.webp') center/cover fixed;
     color: var(--text-dark);
 }
 
@@ -74,9 +74,9 @@ body {
 
 /* --- HERO (Banner) --- */
 .hero {
-    height: 350px;
+    height: calc(100vh - 95px);
     margin-top: 95px;
-    background: linear-gradient(rgba(2, 9, 44, 0.6), rgba(2, 9, 44, 0.6)), url('../files/img/fondo_index.webp') center/cover;
+    background-color: rgba(2, 9, 44, 0.5);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -99,7 +99,11 @@ body {
 .destinos-container {
     max-width: 92%;
     margin: 0 auto;
-    padding: 0 0 80px;
+    /* Le agregamos el mismo efecto cristal */
+    background-color: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(8px);
+    border-radius: 20px;
+    padding: 40px 30px 80px;
 }
 
 .section-title {
@@ -261,7 +265,7 @@ body {
     max-width: 65%;
     border-radius: 15px;
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-    max-height: 85vh;
+    max-height: 95vh;
     display: flex;
     flex-direction: column;
     transform: translateY(-20px);
@@ -418,7 +422,8 @@ body {
 .about-section {
     border-radius: 20px;
     padding: 60px 20px;
-    background-color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(8px);
     text-align: center;
     max-width: 1200px;
     margin: 0 auto 70px auto;
@@ -428,7 +433,7 @@ body {
     max-width: 800px;
     margin: 0 auto 40px auto;
     font-size: 1.1rem;
-    color: var(--text-gray);
+    color: var(--text-black);
     line-height: 1.6;
 }
 
@@ -464,7 +469,7 @@ body {
 }
 
 .about-card p {
-    color: #666;
+    color: var(--text-black);
     font-size: 0.95rem;
     line-height: 1.5;
 }
@@ -502,6 +507,8 @@ body {
 
     .hero {
         margin-top: 180px;
+        height: calc(100vh - 180px);
+        background-attachment: scroll;
     }
 
     .modal-box {
