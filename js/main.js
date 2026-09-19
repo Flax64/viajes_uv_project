@@ -193,7 +193,9 @@ function verificarDisponibilidad(viaje) {
     // 2. Verificamos si tiene una palabra clave
     const isAgotado = textoBadge.includes('agotado') ||
                         textoBadge.includes('completo') ||
-                        textoBadge.includes('no disponible');
+                        textoBadge.includes('no disponible') ||
+                        textoBadge.includes('reservacion agotada') ||
+                        textoBadge.includes('sin lugares disponibles');
     // 3. Retornamos un objeto con las 3 variables que necesita el HTML    
     return {
         agotado: isAgotado,
