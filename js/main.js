@@ -36,6 +36,12 @@ enlacesMenu.forEach(enlace => {
     });
 });
 
+// Fecha actual en el pie de pagina
+const currentYear = document.getElementById('current-year');
+if (currentYear) {
+    currentYear.textContent = new Date().getFullYear();
+}
+
 
 // ==========================================
 // 2. LÓGICA DE DATOS Y RENDERIZADO (JSON)
