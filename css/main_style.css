@@ -49,7 +49,6 @@ body {
 
 .logo-img {
     height: 65px;
-    /* Ajusta según el tamaño real de tu logo */
     object-fit: contain;
 }
 
@@ -415,6 +414,61 @@ body {
     opacity: 0.8; 
 }
 
+/* --- SECCIÓN NOSOTROS --- */
+.about-section {
+    border-radius: 20px;
+    padding: 60px 20px;
+    background-color: #ffffff;
+    text-align: center;
+    max-width: 1200px;
+    margin: 0 auto 70px auto;
+}
+
+.about-text {
+    max-width: 800px;
+    margin: 0 auto 40px auto;
+    font-size: 1.1rem;
+    color: var(--text-gray);
+    line-height: 1.6;
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.about-card {
+    background-color: #d8eef0; 
+    padding: 30px 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.about-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.about-icon {
+    font-size: 2.5rem;
+    display: block;
+    margin-bottom: 15px;
+}
+
+.about-card h3 {
+    color: var(--primary-blue); 
+    margin-bottom: 10px;
+    font-size: 1.3rem;
+}
+
+.about-card p {
+    color: #666;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
 /* --- RESPONSIVIDAD --- */
 @media (max-width: 768px) {
     .header {
@@ -469,6 +523,10 @@ body {
         width: 100%;
         text-align: center;
         box-sizing: border-box;
+    }
+
+    .about-grid {
+        grid-template-columns: 1fr;
     }
 }
 
