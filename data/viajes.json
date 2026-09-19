@@ -52,5 +52,59 @@
             "💳 Tarjeta de crédito a meses sin intereses"
         ],
         "mensaje_final": "¡No pierdas la oportunidad de vivir esta experiencia única en Cancún! Reserva tu lugar ahora y asegura tu viaje con nosotros."
+    },
+    {
+        "id": "cancun_mayo_2027",
+        "nombre": "Cancún - Grand Oasis 2027",
+        "fecha": "📅 12 al 16 de Mayo 2027",
+        "fecha_inicio": "2027-05-12",
+        "fecha_fin": "2027-05-16",
+        "descripcion": "Vive grandes momentos en Grand Oasis Cancún. Vuelo redondo, traslados privados y plan Todo Incluido.",
+        "precio": 12000,
+        "imagen_tarjeta": "files/img/viaje1.webp",
+        "imagen_modal": "files/img/cancun_2027.webp",
+        "mensajeWhats": "Hola Viajes UV, quiero reservar mi lugar para el viaje a Cancún en mayo de 2027.",
+        "incluye": [
+            "✈️ Vuelo redondo Monterrey - Cancún - Monterrey.",
+            "🚐 Traslado privado Aeropuerto - Hotel redondo.",
+            "🏨 Hospedaje en Grand Oasis Cancún.",
+            "🍹 Plan Todo Incluido (9 restaurantes, 9 bares).",
+            "☕ 2 cafeterías y 2 gelatos.",
+            "🏊 Alberca de 400 metros y acceso a la playa."
+        ],
+        "pagos": {
+            "adultos": {
+                "total": "$12,000",
+                "anticipo": "$1,000",
+                "fechas": [
+                    "💳 15 de Octubre 2026: $1,200",
+                    "💳 15 de Noviembre 2026: $1,200",
+                    "💳 15 de Diciembre 2026: $1,200",
+                    "💳 15 de Enero 2027: $1,200",
+                    "💳 15 de Febrero 2027: $1,200",
+                    "💳 15 de Marzo 2027: $1,200",
+                    "✅ 15 de Abril 2027: $3,800 (Liquidación)"
+                ]
+            },
+            "menores": {
+                "total": "$6,000",
+                "anticipo": "$500",
+                "fechas": [
+                    "💳 15 de Octubre 2026 — $600",
+                    "💳 15 de Noviembre 2026 — $600",
+                    "💳 15 de Diciembre 2026 — $600",
+                    "💳 15 de Enero 2027 — $600",
+                    "💳 15 de Febrero 2027 — $600",
+                    "💳 15 de Marzo 2027 — $600",
+                    "✅ 15 de Abril 2027: $1,900 (Liquidación)"
+                ]
+            }
+        },
+        "metodos_pago": [
+            "🏦 Transferencia bancaria",
+            "💵 Depósito en ventanilla o practicaja",
+            "💳 Tarjeta de crédito a meses sin intereses"
+        ],
+        "mensaje_final": "¡No pierdas la oportunidad de vivir esta experiencia única en Cancún! Reserva tu lugar ahora y asegura tu viaje con nosotros."
     }
 ]
